@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/stayle.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Bridge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-blur shadow-sm py-2">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+    <a class="navbar-brand fw-bold" href="#" style="font-size:1rem; letter-spacing:1px; background: linear-gradient(90deg, #e390237c, #d6d4d2, #c18b0c7c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent;">Translation Bridge</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+                <li class="nav-item">
+                    <a class="nav-link active px-3 rounded-pill" aria-current="page" href="#" style="font-weight:500;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-pill" href="#" style="font-weight:500;">Translate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 rounded-pill" href="#" style="font-weight:500;">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled px-3 rounded-pill" aria-disabled="true" style="font-weight:500;">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+<footer class="footer-box w-100">
+    <div class="footer-inner">
+
+        <div class="footer-col">
+            <p class="footer-title">Translation Bridge</p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                <a href="#"><i class="fa-brands fa-x fa-lg"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube fa-lg"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <p class="footer-topic">Topic</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+        </div>
+
+        <div class="footer-col">
+            <p class="footer-topic">Topic</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+        </div>
+
+        <div class="footer-col">
+            <p class="footer-topic">Topic</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+            <p class="footer-link">Page</p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+<script src="{% static 'js/mov.js' %}"></script>
+<script src="{% static 'js/about-animate.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

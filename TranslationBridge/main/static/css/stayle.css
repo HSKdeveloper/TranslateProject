@@ -1,0 +1,182 @@
+
+* { 
+  margin: 0;
+  padding: 0;
+}
+
+.video-container {
+  margin: 0;
+  padding: 0;
+}
+
+video {
+  width: 100vw;
+  height: 90vh;
+  object-fit: cover;
+  display: block;
+}
+.navbar-blur {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: all 0.3s ease;
+}
+.footer-box {
+    background: #f7f7f7;
+    padding: 40px 0;
+    border-top: 1px solid #ddd;
+}
+
+.footer-inner {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.footer-col {
+    text-align: left;
+}
+
+.footer-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.footer-icons a {
+    margin-right: 12px;
+    color: #333;
+    font-size: 22px;
+}
+
+.footer-topic {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.footer-link {
+    color: #777;
+    margin-bottom: 6px;
+}
+.fw-bold {
+    font-size: 22px;
+}
+
+.text-muted {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.more-btn {
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+}
+.more-btn:hover {
+    color: #30393a;
+}
+
+
+/* Hero Section Styles */
+.hero-content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    left: -100px;
+    max-width: 1000px;
+    padding: 9rem;
+}
+.hero-content .title {
+    font-size: 2.3rem;
+    font-weight: 500;
+    letter-spacing: 50px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    text-shadow: #312d2d 5px 4px 6px;
+    gap: 20px;
+}
+.hero-content .w, .hero-content .c, .hero-content .e2 {
+    color: #554a2bc1;
+}
+.hero-content .e, .hero-content .o {
+    color: #151412aa;
+}
+.hero-content .l, .hero-content .m {
+    color: #c1a68b;
+}
+.hero-content h2 {
+    font-size: 5rem;
+    color: #312d2d;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.hero-content p {
+    font-size: 1.5rem;
+    font-style: oblique;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+/* Scroll Menu Styles */
+.scroll {
+    position: absolute;
+    top: 300px;
+    right: 40px;
+    z-index: 10;
+}
+.scroll ul {
+    list-style: none;
+    margin: 0;
+    padding: 90px;
+}
+.scroll li {
+    margin-bottom: 60px;
+    font-size: 1.15rem;
+    font-weight: 300;
+    background: rgba(58, 58, 58, 0.25);
+    border-radius: 12px;
+    padding: 10px 18px;
+    color: #fff;
+    transition: background .30s;
+    display: flex;
+    align-items: center;
+}
+.scroll li a {
+    color: #f7f8fa;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.scroll li:hover {
+    background: rgba(54, 69, 115, 0.331);
+}
+.scroll i {
+    margin-left: 40px;
+}
+
+/*  About */
+#about-text {
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: #333;
+}
+
+/* About Boxes Animation */
+.about-box {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+}
+.about-box.show-animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}

@@ -1,0 +1,101 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - Translation Bridge{% endblock %}
+
+{% block content %}
+
+<div class="video-container">
+    <video autoplay muted loop>
+        <source src="{% static 'videos/home.mp4' %}" type="video/mp4">
+    </video>
+</div>
+
+
+    <div class="scroll">
+        <ul>
+            <li><a href="#about">About Us <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
+            <li><a href="#join">Join Us   <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
+            <li><a href="#contact">Contact  <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
+        </ul>
+    </div>
+               
+    </div>
+        <div class="hero-content">
+            <h3 class="title">
+                <span class="w">W</span><span class="e">E</span><span class="l">L</span> <span class="c">C</span><span class="o">O</span><span class="m">M</span><span class="e2">E</span>
+            </h3>
+            <h2>Translation Bridge</h2>
+            <p>The city of the future — where humanity and technology harmonize in musical accord</p>
+        </div>
+    </div>
+
+    <section id="about" class="container my-5">
+
+    <!-- Title -->
+   <br>
+   <br>
+
+    <!-- Long Paragraph -->
+     <h1 class="fw-bold text-center mt-3 about-hidden">About Us</h1>
+    <p id="about-text" class="text-center mt-3 about-hidden">
+        Translation Bridge is a platform designed to connect individuals and companies 
+        with professional translators across the Kingdom. Our goal is to make the 
+        translation process easier, faster, and more accessible by offering a smart 
+        system that allows users to search for translators based on location, language, 
+        and specialization.<br><br>
+
+        Through Translation Bridge, clients can explore detailed translator profiles, 
+        review their skills and experience, and choose the translator that best fits 
+        their needs. Companies can also post translation requests, browse qualified 
+        translators in their area, and collaborate directly with them through a seamless 
+        and user-friendly interface.<br><br>
+
+        The platform is built to support both sides of the translation industry—those 
+        who need translation services and those who provide them—by creating a trusted 
+        space that enhances communication, increases opportunities, and promotes quality 
+        and professionalism in every translation project.
+    </p>
+
+    <!-- 3 Sections -->
+    <div class="row text-center mt-5">
+
+        <div class="col-md-4 about-box box-left about-hidden">
+            <i class="bi bi-bullseye fs-1 mb-3"></i>
+            <h4 class="fw-bold">Our Mission</h4>
+            <p>
+                To simplify access to professional translation services and support both 
+                clients and translators through a seamless digital experience.
+            </p>
+        </div>
+
+        <div class="col-md-4 about-box box-down about-hidden">
+            <i class="bi bi-eye fs-1 mb-3"></i>
+            <h4 class="fw-bold">Our Vision</h4>
+            <p>
+                To become the leading translation platform in the Kingdom, known for quality, 
+                trust, and accessibility for everyone.
+            </p>
+        </div>
+
+        <div class="col-md-4 about-box box-right about-hidden">
+            <i class="bi bi-stars fs-1 mb-3"></i>
+            <h4 class="fw-bold">What We Offer</h4>
+            <p>
+                Verified translators, smart search by city and language, detailed profiles, 
+                translation requests, and a fully integrated connection system.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+{% endblock %}
+
+
+
