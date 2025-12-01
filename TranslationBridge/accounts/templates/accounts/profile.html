@@ -1,61 +1,70 @@
-{% extends 'accounts/test.html' %}
+{% extends 'main/base.html' %}
 
 {% block title %} Profile page {% endblock %}
 
 {% block content %}
 
-<div class="profile-info">
-    <div class="card shadow-lg p-4">
-        <h2 class="border-bottom pb-2 mb-4">PROFILE</h2>
-        
-        <div class="row">
-            <div class="col-lg-4 border-end">
-                <div class="text-center mb-4">
-                    <i class="fas fa-user-circle fa-5x text-secondary"></i> 
-                    <p class="mt-2 text-muted">Upload Picture</p>
-                </div>
-                
-                <ul class="list-group list-group-flush mb-4">
-                    <li class="list-group-item"><i class="fab fa-facebook me-2 text-primary"></i> Add Facebook</li>
-                    <li class="list-group-item"><i class="fab fa-twitter me-2 text-info"></i> Add Twitter</li>
-                    <li class="list-group-item"><i class="fab fa-instagram me-2 text-danger"></i> Add Instagram</li>
-                    <li class="list-group-item"><i class="fab fa-google-plus-g me-2 text-warning"></i> Add Google+</li>
-                </ul>
-            </div>
-            
-            <div class="col-lg-8 ps-lg-4">
-                
-                <form>
-                    <div class="mb-3">
-                        <label class="form-label">Username:</label>
-                        <input type="text" class="form-control" value="Asenkrekmanov">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">E-mail:</label>
-                        <input type="email" class="form-control" value="azkrekmanov@gmail.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Password:</label>
-                        <input type="password" class="form-control" value="bigbigworld123">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Repeat Password:</label>
-                        <input type="password" class="form-control" value="bigbigworld123">
-                    </div>
-                    
-                    <h5 class="mt-4">About Me:</h5>
-                    <textarea class="form-control mb-4" rows="3">I am Asen Krekmanov and I am dedicated UI/UX Designer from Sofia, Bulgaria.</textarea>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Update Information</button>
-                    </div>
-                </form>
-                
-            </div>
-            
+<div class="container py-5">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-4 d-flex flex-column align-items-start justify-content-start" style="padding-left: 0px; padding-top: 0px;">
+            <i class="fas fa-user-circle fa-8x" style="animation:pulse 2.5s infinite; color:#c8b08b; text-shadow:0 0 12px #c8b08b99; margin-bottom: 8px; margin-top: -290px;"></i>
+            <p class="mt-2 text-muted" style="font-size:2rem; margin-left: 8px;"> @Nora</p>
         </div>
-        
+            <div class="col-md-6" style="margin-top:160px;">
+                    <div style="background:#fff9f3; border-radius:18px; box-shadow:0 4px 24px #c8b08bc8; padding:32px 28px; margin-left:-280px;">
+                        <h2 style="font-size:2rem; font-weight:700; color:#a67c52; margin-bottom:32px; text-align:left;">PROFILE</h2>
+                        <div style="display:flex; flex-direction:column; gap:18px;">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-weight:600; color:#a67c52; min-width:100px;">@Username:</span>
+                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.username}}</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-weight:600; color:#a67c52; min-width:100px;">First Name</span>
+                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.first_name}}</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-weight:600; color:#a67c52; min-width:100px;">Last Name</span>
+                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.last_name}}</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-weight:600; color:#a67c52; min-width:100px;">E-mail:</span>
+                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.email}}</span>
+                            </div>
+                            <div>
+                                <span style="font-weight:600; color:#a67c52;">About Me:</span>
+                                <div style="font-weight:500; color:#6e4c1b; background:#fff; border-radius:10px; padding:12px 18px; margin-top:8px; border:1px solid #c8b08b;">
+                                    I am Asen Krekmanov and I am dedicated UI/UX Designer from Sofia, Bulgaria.
+                                </div>
+                            </div>
+                        </div>
+                            <div class="d-flex gap-3 mt-4">
+                                <a href="#" class="social-circle" style="background:#fff2e0; color:#3b5998; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="social-circle" style="background:#fff2e0; color:#1da1f2; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-circle" style="background:#fff2e0; color:#e1306c; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-circle" style="background:#fff2e0; color:#ea4335; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </a>
+                            </div>
+                    </div>
+                </div>
     </div>
+</div>
+<style>
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+.fa-user-circle {
+    animation-duration: 3s !important;
+}
+</style>
 </div>
 
 {% endblock %}

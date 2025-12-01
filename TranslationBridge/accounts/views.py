@@ -12,6 +12,7 @@ def sign_up(request:HttpRequest):
 
     if request.method == "POST":
         try:
+           # with transaction.atomic():
             new_user = User.objects.create_user(username=request.POST["username"],password=request.POST["password"],email=request.POST["email"], first_name=request.POST["first_name"], last_name=request.POST["last_name"])
             new_user.save()
             messages.success(request,"Registered user successfuly", "alert-success")
