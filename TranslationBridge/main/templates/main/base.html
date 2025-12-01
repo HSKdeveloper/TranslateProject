@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/stayle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Translation Bridge</title>
@@ -23,13 +24,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
                 <li class="nav-item">
-                    <a class="nav-link active px-3 rounded-pill" aria-current="page" href="#" style="font-weight:500;">Home</a>
+                    <a class="nav-link active px-3 rounded-pill" aria-current="page" href="{% url 'main:home_view' %}" style="font-weight:500;">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3 rounded-pill" href="#" style="font-weight:500;">Translate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3 rounded-pill" href="#" style="font-weight:500;">Contact</a>
+                    <a class="nav-link px-3 rounded-pill" href="{% url 'main:contact_view' %}" style="font-weight:500;">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled px-3 rounded-pill" aria-disabled="true" style="font-weight:500;">Disabled</a>

@@ -1,0 +1,51 @@
+
+.contact-box {
+  background: rgba(248, 241, 241, 0.235);
+  box-shadow: 0 4px 24px rgba(8, 20, 80, 0.513);
+  border-radius: 18px;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 2.5rem 2rem;
+}
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #161412b0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.input-group input,
+.input-group textarea {
+  border-radius: 10px;
+  border: 1px solid #d8212164;
+  padding: 10px;
+  font-size: 1rem;
+  background: #ffffff38; /* هذا حق اللي داخل*/
+  transition: border 0.2s;
+}
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #aa1e1e;
+  outline: none;
+}
+.btn-main {
+  background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+  color: #f5efef;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-main:hover {
+  background: linear-gradient(90deg, #d87f12a3, #d56b24d7);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}

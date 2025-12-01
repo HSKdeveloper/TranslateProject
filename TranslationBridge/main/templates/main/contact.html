@@ -5,11 +5,34 @@
 
 {% block content %}
 
-<h3>Contact Us</h3>
-
-
-
-
+<div class="container mt-4 mb-5" style="padding-top: 70px;">
+    <h2>Contact Us</h2>
+    <form method="post" action="{% url 'main:contact_view' %}">
+        {% csrf_token %}
+      <div class="contact-box">
+  <h2 class="text-center mb-4"></h2>
+  <form method="post" action="{% url 'main:contact_view' %}">
+    {% csrf_token %}
+    <div class="input-group">
+      <label for="first_name"><i class="fa fa-user"></i> First Name</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+    <div class="input-group">
+      <label for="last_name"><i class="fa fa-user"></i> Last Name</label>
+      <input type="text" id="last_name" name="last_name" required>
+    </div>
+    <div class="input-group">
+      <label for="email"><i class="fa fa-envelope"></i> Email address</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="input-group">
+      <label for="message"><i class="fa fa-comment"></i> Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn-main w-100 mt-3">Send Message</button>
+  </form>
+</div>
+    </form>
 
 
 
