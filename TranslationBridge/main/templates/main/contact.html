@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="container mt-4 mb-5" style="padding-top: 70px;">
+<div class="container mt-4 mb-5" style="padding-top: 50px; font-style: italic; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
     <h2>Contact Us</h2>
     <form method="post" action="{% url 'main:contact_view' %}">
         {% csrf_token %}
