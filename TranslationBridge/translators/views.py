@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 
 #import models
-from .models import Country, City, Translator, Review 
+from .models import Country, City, Translator, Review, Language
 
 #import form
 from .forms import TranslatorForm
@@ -33,6 +33,7 @@ def create_translator_view(request:HttpRequest):
     translator_form = TranslatorForm()
 
     city = City.objects.all()
+    languages = Language.objects.all()
 
     if request.method == "POST":
 
@@ -46,4 +47,4 @@ def create_translator_view(request:HttpRequest):
             print("not valid form", translator_form.errors)
     
 
-    return render(request, "translators/translators_create.html", {"translator_form":translator_form, "LanguageChoices":Translator.LanguageChoices.choices, "RatingChoices":Translator.RatingChoices.choices, "cities":city } )
+    return render(request, "translators/translators_create.html", {"translator_form":translator_form, "RatingChoices":Translator.RatingChoices.choices, "cities":city, "languages":languages } )

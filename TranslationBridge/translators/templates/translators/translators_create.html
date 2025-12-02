@@ -32,9 +32,9 @@
              <h3> Select the languages you knows : </h3>
              <div class="d-flex gap-2 align-items-center">
                 <h5 class="m-0 p-0">languages</h5>
-                {% for language in LanguageChoices %}
-                <input type="checkbox"  value="{{language.id}}"  id="check-{{language.id}}" class="form-check-input" name="languages" id="">
-                <label for="check-{{language.id}}">{{ language.1 }}</label>
+                {% for lang in languages %}
+                    <input type="checkbox"  value="{{lang.id}}"  id="check-{{lang.id}}" class="form-check-input" name="languages">
+                    <label for="check-{{lang.id}}">{{ lang.name }}</label>
                 {% endfor %}
              </div>
 
