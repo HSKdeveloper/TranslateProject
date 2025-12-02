@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+#Languages Choices list
+class LanguageChoices(models.TextChoices):
+    ARABIC = "arabic", "Arabic"
+    ENGLISH = "english", "English"
+    KOREAN = "korean", "Korean"
+    CHINESE = "chinese", "Chinese"
+    JAPANESE = "japanese", "Japanese"
+    OTHER = "other", "Other"
 
 #Translator location model
 class Country(models.Model):
@@ -14,16 +22,11 @@ class City(models.Model):
     country = models.ForeignKey( Country, on_delete= models.CASCADE)
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=50, choices= LanguageChoice.choices, unique= True )
+
 #Translator information model
 class Translator(models.Model):
-    
-    class LanguageChoices(models.TextChoices):
-        ARABIC = "arabic", "Arabic"
-        ENGLISH = "english", "English"
-        KOREAN = "korean", "Korean"
-        CHINESE = "chinese", "Chinese"
-        JAPANESE = "japanese", "Japanese"
-        OTHER = "other", "Other"
 
     class RatingChoices(models.IntegerChoices):
         STAR1 = 1, "One Star"
