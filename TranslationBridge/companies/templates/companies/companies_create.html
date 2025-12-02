@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Create Company Profile - Translation Bridge {% endblock %}
+
+{% block content %}
+
+<h1>Create Company Profile</h1>
+    <div class="">
+        <div class="col-8">
+            <form class="d-flex flex-column gap-2" action="{% url 'companies:companies_create_view' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="type"><i class="fa fa-building"></i> Company Type</label>
+                    <input type="text" id="type" name="type" required>
+                </div>
+                <div class="input-group">
+                    <label for="description"><i class="fa fa-info-circle"></i> Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="input-group">    
+                    <label for="file"><i class="fa fa-file"></i> Upload File</label>
+                    <input type="file" id="file" name="file" required>
+                </div>
+
+
+
+
+
+
+{% endblock %}

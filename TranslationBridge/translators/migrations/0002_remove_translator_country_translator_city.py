@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='translator',
             name='city',
-            field=models.ForeignKey(default='riyadh', on_delete=django.db.models.deletion.CASCADE, to='translators.city'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='translators.city'),
             preserve_default=False,
         ),
     ]
