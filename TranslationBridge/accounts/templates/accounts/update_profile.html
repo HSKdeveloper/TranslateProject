@@ -1,78 +1,43 @@
-{% extends 'accounts/test.html' %}
+{% extends 'main/base.html' %}
 
-{% block title %} Update page {% endblock %}
+{% block title %} Update Profile {{request.user.username}} {% endblock %}
 
 {% block content %}
 
-
-<div class="container py-5">
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-4 d-flex flex-column align-items-start justify-content-start" style="padding-left: 0px; padding-top: 0px;">
-            <i class="fas fa-user-circle fa-8x" style="animation:pulse 2.5s infinite; color:#c8b08b; text-shadow:0 0 12px #c8b08b99; margin-bottom: 8px; margin-top: -290px;"></i>
-            <p class="mt-2 text-muted" style="font-size:2rem; margin-left: 8px;"> @Nora</p>
+<div class="signup-title">
+           <br>
+            <h3 class="justify-content-center align-items-center p-2 " style="font-family: 'Courier New', Courier, monospace; color:#a67c52; margin: 30px; font-style:normal; font-size: 2.5rem; font-weight: bold">Update Profile @{{request.user.username}}</h3>            
         </div>
-            <div class="col-md-6" style="margin-top:160px;">
-                    <div style="background:#fff9f3; border-radius:18px; box-shadow:0 4px 24px #c8b08bc8; padding:32px 28px; margin-left:-280px;">
-                        <h2 style="font-size:2rem; font-weight:700; color:#a67c52; margin-bottom:32px; text-align:left;">PROFILE</h2>
-                        <div style="display:flex; flex-direction:column; gap:18px;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:600; color:#a67c52; min-width:100px;">@Username:</span>
-                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.username}}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:600; color:#a67c52; min-width:100px;">First Name</span>
-                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.first_name}}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:600; color:#a67c52; min-width:100px;">Last Name</span>
-                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.last_name}}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:600; color:#a67c52; min-width:100px;">E-mail:</span>
-                                <span style="font-weight:500; color:#6e4c1b;">{{request.user.email}}</span>
-                            </div>
-                            <div>
-                                <span style="font-weight:600; color:#a67c52;">About Me:</span>
-                                <div style="font-weight:500; color:#6e4c1b; background:#fff; border-radius:10px; padding:12px 18px; margin-top:8px; border:1px solid #c8b08b;">
-                                    I am Asen Krekmanov and I am dedicated UI/UX Designer from Sofia, Bulgaria.
-                                </div>
-                            </div>
-                        </div>
-                            <div class="d-flex gap-3 mt-4">
-                                <a href="#" class="social-circle" style="background:#fff2e0; color:#3b5998; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                                <a href="#" class="social-circle" style="background:#fff2e0; color:#1da1f2; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="social-circle" style="background:#fff2e0; color:#e1306c; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="social-circle" style="background:#fff2e0; color:#ea4335; border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #c8b08b22; font-size:1.7rem; transition:box-shadow 0.2s; text-decoration:none;">
-                                    <i class="fab fa-google-plus-g"></i>
-                                </a>
-                            </div>
-                    </div>
-                </div>
+    <div class="justify-content-center align-items-center card shadow rounded p-2 m-6 " id="signup-card" style="border-radius: 18px; max-width: 600px; margin: 10px auto;">
+
+
+        <form class="d-flex flex-column gap-3 w-50" action="{% url 'accounts:update_profile_view' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username"><i class="fa fa-user"></i> User Name</label>
+                <input type="text" id="username" name="username" required value="{{request.user.username}}">
+            </div>
+            <div class="input-group">
+                <label for="first_name"><i class="fa fa-user"></i> First Name</label>
+                <input type="text" id="first_name" name="first_name" required value="{{request.user.first_name}}">
+            </div>
+            <div class="input-group">
+                <label for="last_name"><i class="fa fa-user"></i> Last Name</label>
+                <input type="text" id="last_name" name="last_name" required value="{{request.user.last_name}}">
+            </div>
+            <div class="input-group">
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                <input type="email" id="email" name="email" required value="{{request.user.email}}">
+            </div>
+                <div class="input-group">
+                <label for="message"><i class="fa fa-comment"></i> Bio</label>
+                <textarea id="message" name="message" rows="4" required>{{request.user.profile.bio}}</textarea>
+            </div>
+            <h4>Choose Avatar </h4>
+                <img src="{{request.user.profile.avatar.url}}" alt="Current Avatar" style="width:80px; height:80px; object-fit:cover; border-radius:50%; box-shadow:0 0 12px #c8b08b99; margin-bottom:8px;" />
+                <input type="file" name="avatar" accept="image/*" class="form-control" />
+            <button type="submit" class="btn-main w-100 mt-3">Update</button>
+        </form>
     </div>
-</div>
-<style>
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-    100% { transform: scale(1); }
-}
-.fa-user-circle {
-    animation-duration: 3s !important;
-}
-</style>
-</div>
-
-
-
-
-
-
-
 
 {% endblock %}
