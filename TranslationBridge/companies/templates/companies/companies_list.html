@@ -6,3 +6,112 @@
 {% block content %}
 
 
+
+<div id="companyCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+        {% for company in companies %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+            <div class="company-card">
+
+                <!-- صورة علم الدولة -->
+                {% if company.country.flag %}
+                <img src="{{ company.country.flag.url }}" class="country-flag" alt="">
+                {% endif %}
+
+                <h2>{{ company.name }}</h2>
+                <p>{{ company.description }}</p>
+
+                <div class="info">
+
+                    <p><strong style="font-family: 'Courier New', Courier, monospace; font-size: x-large;">Country:</strong> {{ company.country.name }}</p>
+                    <p><strong style="font-family: 'Courier New', Courier, monospace; font-size: x-large;">City:</strong> {{ company.city.name }}</p>
+
+                    <p><strong style="font-family: 'Courier New', Courier, monospace; font-size: x-large;">Languages:</strong>
+                        {% for lang in company.languages.all %}
+                            {{ lang.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <p><strong style="font-family: 'Courier New', Courier, monospace; font-size: x-large;">Rating: </strong> 
+                        {% for i in "12345"|slice:":company.rating" %}
+                            ⭐
+                        {% endfor %}
+                    </p>
+
+                    <!-- التاريخ والشهر -->
+                    {% if company.accreditations.all %}
+                        {% for acc in company.accreditations.all %}
+                            <p><strong style="font-family: 'Courier New', Courier, monospace; font-size:x-large;">Date:</strong> {{ acc.date }}</p>
+                            <p><strong style="font-family: 'Courier New', Courier, monospace; font-size: x-large;">Month:</strong> {{ acc.month }}</p>
+                            
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#companyCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#companyCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<style>
+
+
+body {
+    background-image: url('/static/images/compny.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* عشان تتحرك الصفحة والصورة تبقى ثابتة */
+}
+.company-card {
+    width: 60%;
+    margin: 120px auto 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: white;
+    text-align: center;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+
+    position: relative;
+}
+
+/* علم الدولة */
+.country-flag {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* السلايدر */
+.carousel-item {
+    min-height: 100vh;
+    padding-top: 50px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    filter: invert(1);
+}
+</style>
+
+{% endblock %}
