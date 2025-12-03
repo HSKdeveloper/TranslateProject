@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
+from companies.models import Company
 
 #for messages notifications
 from django.contrib import messages
@@ -8,9 +9,10 @@ from main.models import Contact
 
 # Create your views here.
 def home_view(request: HttpRequest):
+    
+    companies = Company.objects.all()[:3]
 
-
-    return render(request, "main/home.html")
+    return render(request, "main/home.html", {"companies": companies})
 
 
 #Contact view
