@@ -69,6 +69,13 @@ def translator_list_view(request:HttpRequest):
     paginator = Paginator(translators, 9)
     translators_page =paginator.get_page(page_number)
 
-    return render(request, "translators/translators_list.html", { "translators": translators_page, "languages":languages, "cities": cities })
+    context = { "translators": translators_page, "languages": languages, "cities":cities }
 
-    
+    return render(request, "translators/translators_list.html", context)
+
+
+def translator_detail_view(request:HttpRequest, translators_id:int):
+
+    translator = Translator.objects.get(pk=translators_id)
+
+    return render(request, 'translators/translators_detail.html',{ "translator" : translator  })
