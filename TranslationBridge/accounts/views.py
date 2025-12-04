@@ -14,12 +14,12 @@ def sign_up(request:HttpRequest):
 
     if request.method == "POST":
         try:
-           # with transaction.atomic():
+           with transaction.atomic():
             new_user = User.objects.create_user(username=request.POST["username"],password=request.POST["password"],email=request.POST["email"], first_name=request.POST["first_name"], last_name=request.POST["last_name"])
             new_user.save()
 
             #create user profile
-            profile=Profile(user=new_user, bio=request.POST["bio"], avatar=request.FILES.get("avatar", Profile.avatar.field.get_default()))
+            profile=Profile(user=new_user, bio=request.POST["bio"],user_type=request.POST["user_type"], avatar=request.FILES.get("avatar", Profile.avatar.field.get_default()))
             profile.save()
 
             messages.success(request, "Registered user successfuly", "alert-success")
@@ -40,7 +40,7 @@ def sign_in(request:HttpRequest):
         if user:
             login(request, user)
             messages.success(request, "Logged in successfuly", "alert-success")
-            return redirect("accounts:home_view")
+            return redirect("main:home_view")
         else:
             messages.error(request," Please try again. You credentials are wrong", "alert-danger")
 
@@ -48,7 +48,7 @@ def sign_in(request:HttpRequest):
 
 
 #Logout view
-def logout (request:HttpRequest):
+def log_out (request:HttpRequest):
 
     logout(request)
     messages.success(request, "logged out successfuly", "alert-warning")

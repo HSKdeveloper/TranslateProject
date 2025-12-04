@@ -9,8 +9,10 @@
         main
         {
             width: 100%;
-            height: 100vh;
+            height: fit-content;
             display: flex;
+            padding-top: 120px;
+            padding-bottom: 120px;
             align-items: center;
             flex-direction: column;
             justify-content: center;
@@ -66,6 +68,13 @@
                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
                <label for="floatingPassword">Password</label>
             </div>
+
+            <label for="user_type">Who are you?</label>
+            <select name="user_type" id="user_type" required>
+                <option value="translator">Translator</option>
+                <option value="company">Company</option>
+                <option value="other">Other</option>
+            </select>
 
             <button class="btn btn-brown w-100 py-2" type="submit">Sign up</button>
         </form>
