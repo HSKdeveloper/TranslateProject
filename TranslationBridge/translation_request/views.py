@@ -29,6 +29,10 @@ def request_list_view(request: HttpRequest):
 
     requests = TranslationRequest.objects.all()
 
+    selected_type = request.GET.get("type")
+    if selected_type:
+        requests = requests.filter(request_type=selected_type)
+
     if not request.user.is_authenticated:
       messages.error(request, "You must be logged in to view this list", "alert-danger")
       return redirect("accounts:sign_in")
