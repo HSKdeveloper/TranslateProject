@@ -58,39 +58,39 @@
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-building"></i></span>
               <span class="info-label">Company Name</span>
-              <span class="info-value">{{ request.company_name }}</span>
+              <span class="info-value">{{ translation_request.company_name }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-briefcase"></i></span>
               <span class="info-label">Company Type</span>
-              <span class="info-value">{{ request.company_type }}</span>
+              <span class="info-value">{{ translation_request.company_type }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-list-task"></i></span>
               <span class="info-label">Request Type</span>
-              <span class="info-value">{{ request.request_type }}</span>
+              <span class="info-value">{{ translation_request.request_type }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-chat-left-text"></i></span>
               <span class="info-label">Description</span>
-              <span class="info-value">{{ request.description }}</span>
+              <span class="info-value">{{ translation_request.description }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-translate"></i></span>
               <span class="info-label">Language</span>
-              <span class="info-value">{{ request.language }}</span>
+              <span class="info-value">{{ translation_request.language }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-award"></i></span>
               <span class="info-label">Specialty</span>
-              <span class="info-value">{{ request.specialty }}</span>
+              <span class="info-value">{{ translation_request.specialty }}</span>
             </div>
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-paperclip"></i></span>
               <span class="info-label">File</span>
               <span class="info-value">
-                {% if request.file %}
-                  <a href="{{ request.file.url }}" target="_blank" class="btn btn-outline-primary btn-sm">Download</a>
+                {% if translation_request.file %}
+                  <a href="{{ translation_request.file.url }}" target="_blank" class="btn btn-outline-primary btn-sm">Download</a>
                 {% else %}
                   <span class="text-muted">No file</span>
                 {% endif %}
@@ -99,32 +99,7 @@
             <div class="info-row">
               <span class="info-icon"><i class="bi bi-clock-history"></i></span>
               <span class="info-label">Translation Duration</span>
-              <span class="info-value">{{ request.duration_days }} days</span>
-            </div>
-            <div class="info-row">
-              <span class="info-icon"><i class="bi bi-person"></i></span>
-              <span class="info-label">Translator Name</span>
-              <span class="info-value">{{ request.translator_name }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-icon"><i class="bi bi-person-badge"></i></span>
-              <span class="info-label">Translator Specialty</span>
-              <span class="info-value">{{ request.translator_specialty }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-icon"><i class="bi bi-calendar-event"></i></span>
-              <span class="info-label">Start Date</span>
-              <span class="info-value">{{ request.translator_start_date }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-icon"><i class="bi bi-hourglass-split"></i></span>
-              <span class="info-label">Translator Duration</span>
-              <span class="info-value">{{ request.translator_duration_days }} days</span>
-            </div>
-            <div class="info-row">
-              <span class="info-icon"><i class="bi bi-translate"></i></span>
-              <span class="info-label">Translator Language</span>
-              <span class="info-value">{{ request.translator_language }}</span>
+              <span class="info-value">{{ translation_request.duration_days }}</span>
             </div>
           </div>
         </div>

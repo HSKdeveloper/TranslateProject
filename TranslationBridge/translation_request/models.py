@@ -29,7 +29,7 @@ class TranslationRequest(models.Model):
     language = models.ForeignKey(Language, on_delete=models.PROTECT, null=True,blank=True)
     specialty = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(upload_to="pdf/", null=True, blank=True)
-    duration_days = models.DateTimeField(null=True, blank=True)
+    duration_days = models.CharField(max_length=50, null=True, blank=True)
 
     # -------- طلب مترجم --------
     translator_name = models.CharField(max_length=100, null=True, blank=True)
@@ -39,4 +39,4 @@ class TranslationRequest(models.Model):
     translator_language = models.ManyToManyField(Language, related_name="translator_languages", blank=True)
 
     def __str__(self):
-        return f"{self.company} - {self.get.request_typeـdisplay()}"
+        return f"{self.company_name} - {self.request_type}"
