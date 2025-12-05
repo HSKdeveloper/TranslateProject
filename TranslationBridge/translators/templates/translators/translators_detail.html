@@ -64,35 +64,49 @@
 {% block content %}
 <section class="detail-section">
     <div class="translator-detail-content">
-        <h3>Translator name:</h3>
+        <h1>Translator Information</h1>
+        <h3>Name:</h3>
         <p>{{ translator.name }}</p><!-- add translator name here -->
-        <h3>Translator specialty:</h3>
-        <p>{{ translator.specialty }}</p><!-- add translator specialty here -->
-        <h3>Translator languages:</h3>
+        <h3>Specialty:</h3>
+        <p>{{ translator.specialties.name}}</p><!-- add translator specialty here -->
+        <h3>Languages:</h3>
         <!-- using for loop-->
          {% for language in  translator.languages.all %} <!-- or using translator.language.id ?!-->
             <p>{{ language.name }}</p><!-- add translator languages here -->
          {% endfor %}
          
-        <h3>Translator Rating:</h3>
+        <h3>Rating:</h3>
         <p>{{ translator.get_rating_display }}</p>
 
-        <h3>Translator experience:</h3>
+        <h3>Experience:</h3>
         <p>{{ translator.experience }}</p><!-- add translator specialty here -->
-        <h3>Translator location:</h3>
+        <h3>Location:</h3>
         <!-- the user can click on the city then the location page turn on and shows the other translators in the same city -->
         <p>{{ translator.city.country.name }} : {{ translator.city.name  }}</p><!-- add translator location of the city live in here -->
         
         <!-- Don't forgit add contact information also {email address,phone number}-->
         
-        <!-- the link shows just for company users -->
-        <a href="{% url 'translators:create_translator_view' %}">Add request</a>
 
-        <!-- the link shows just for translator user have the same user id -->
-        <a href="{% url 'translators:create_translator_view' %}">Update information</a>
+
+
+        {% if request.user.is_authenticated and request.user.profile.user_type == 'company' %}
+            <!-- the link shows just for company users -->
+            <a href="{% url 'translators:create_translator_view' %}">Add request</a>         
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user == translator.user %}
+            <!-- the link shows just for translator user have the same user id -->
+            <a href="{% url 'translators:translator_update_view' translator.id %}">Update information</a>
+
+            <!-- the link shows just for translator user have the same user id -->
+            <a href="{% url 'translators:translator_delete_view' translator.id %}">Delete information</a>        
+        {% endif %}
+
+
+
     </div>   
     <div class="translator-img">
-        <img src="/static/images/translator-img.jpg" alt="">
+        <img src="{{translator.image.url}}" alt="">
     </div> 
 
 

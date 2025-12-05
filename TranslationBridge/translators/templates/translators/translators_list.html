@@ -179,9 +179,39 @@
         border-bottom-left-radius: 80px;
         border-bottom-right-radius: 80px;
     }
+    /* pagination style */
     .pagination-setting
     {
         z-index: 2;
+    }
+       
+    .pagination-container {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    .pagination-container a {
+        color: #48617b;
+        text-decoration: none;
+        padding: 8px 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        margin: 0 4px; 
+    }
+
+    .pagination-container a:hover {
+        color:rgb(202, 183, 183) ;
+        background-color: #48617b;
+    }
+
+    .pagination-container .current {
+        color: rgb(202, 183, 183);
+        padding: 8px 15px;
+        font-size: 1.1em;
     }
 </style>
 
@@ -193,28 +223,31 @@
     {% include 'translators/translators_include_list.html' %}
 
 <!-- Pagination settings -->
- <div class="pagination-setting">
-        <div class="pagination d-flex justify-content-center align-items-center mt-5 gap-4">
-            {% if translators.has_previous %}
-                <div class="d-flex gap-1">
-                    <a href="?page=1">&laquo; first page </a>
-                    <a href="?page={{ translators.previous_page_number }}">&laquo; previous page </a>
-                </div>
-            {% endif %}
+<div class="pagination-container d-flex justify-content-center align-items-center mt-5 mb-5 w-100">
+    
+    <div class="d-flex align-items-center gap-4">
+        
+        {% if translators.has_previous %}
+        <div class="d-flex gap-1">
+            <a href="?page=1" class="btn btn-sm btn btn-light">&laquo; First</a>
+            <a href="?page={{ translators.previous_page_number }}" class="btn btn-sm btn btn-light">&laquo; Previous</a>
+        </div>
+        {% endif %}
 
-            <div class="current">
-                Page {{ translators.number }} of {{ translators.paginator.num_pages}}
-            </div>
-
-            {% if translators.has_next %}
-                <div class="d-flex gap-1">
-                    <a href="?page={{ translators.next_page_number }}"> next page </a>
-                    <a href="?page={{ translators.paginator.num.pages }}"> last page </a>
-                </div>
-
-            {% endif %}
-        </div>    
- </div>
+        <div class="current fw-bold mx-2 ">
+            Page {{ translators.number }} of {{ translators.paginator.num_pages }}
+        </div>
+        
+        {% if translators.has_next %}
+        <div class="d-flex gap-1">
+            <a href="?page={{ translators.next_page_number }}" class="btn btn-sm btn-btn btn-light">Next &raquo;</a>
+            <a href="?page={{ translators.paginator.paginator.num_pages }}" class="btn btn-sm btn btn-light">Last &raquo;</a>
+        </div>
+        {% endif %}
+        
+    </div>
+    
+</div>
 
 </section>
     

@@ -1,35 +1,23 @@
 
 
     {% for translator in translators %}
-    <!--
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                
-                    <h5 class="card-title ">{{translator.name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{translator.specialty}}</h6> <h3>{{translator.name}}</h3>
-                    <p class="card-text">{{translator.experience | truncatewords:6}}</p>
-                    <a href="{% url 'translators:translator_detail_view' translator.id %}" class="card-link">more</a>
-                    <a href="#" class="card-link">Another link</a>
+        <div class="container">
+            <div class="card">
+                <div class="content">
+                    <h2>{{translator.name}}</h2>
+                    <p>{{translator.experience | truncatechars:100 }}</p>
+
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'translators:translator_detail_view' translator.id %}">Read More</a>
+                    {% endif %}
+                </div>
+                <div class="imgBx">
+                    <img src="{{translator.image.url}}" alt="">
+                </div>
+                <div class="textBx">
+                    <h5>{{translator.specialties.name}}</h5>
                 </div>
             </div>
-        </div>    
-    -->
-
-    <div class="container">
-        <div class="card">
-            <div class="content">
-                <h2>{{translator.name}}</h2>
-                <p>{{translator.experience | truncatewords:50}}</p>
-                <a href="{% url 'translators:translator_detail_view' translator.id %}">Read More</a>
-            </div>
-            <div class="imgBx">
-                <img src="{{translator.image.url}}" alt="">
-            </div>
-            <div class="textBx">
-                <h5>{{translator.specialty}}</h5>
-            </div>
         </div>
-    </div>
     {% endfor %}
   
