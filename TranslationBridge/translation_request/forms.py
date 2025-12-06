@@ -18,9 +18,7 @@ class TranslationRequestForm(forms.ModelForm):
             'file',
             'duration_days',
             'start_date',
-            'city',
-            'status'
-   
+            'city'
         ]
 
         widgets = {

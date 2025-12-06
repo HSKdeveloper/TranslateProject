@@ -11,19 +11,21 @@ from .models import TranslationRequest
 
 def request_create_view(request: HttpRequest):
     
-   languages = Language.objects.all()
-   if request.method == "POST":
+    languages = Language.objects.all()
+    if request.method == "POST":
         form = TranslationRequestForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Add Translator information successfully!", "alert-success")
-
-            return redirect('translation_request:request_matched_view', request_id=form.instance.id)  
+            obj = form.save(commit=False)
+            obj.company = request.user
+            obj.status = "pending"  # تعيين الحالة تلقائياً
+            obj.save()
+            messages.success(request, "Request added successfully!", "alert-success")
+            return redirect('translation_request:request_matched_view', request_id=obj.id)
         else:
             print("Form not valid", form.errors)
-   else:
-        form = TranslationRequestForm() #hessa
-   return render(request, "translation_request/request_create.html", {"form": form, "languages": languages})
+    else:
+        form = TranslationRequestForm()
+    return render(request, "translation_request/request_create.html", {"form": form, "languages": languages})
 
       
 def request_list_view(request: HttpRequest):
