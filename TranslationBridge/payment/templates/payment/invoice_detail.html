@@ -1,72 +1,220 @@
-{% extends "main/base.html" %}
-{% load static %}
-{% block title %}Invoice Details #{{ invoice.pk }}{% endblock title %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="card shadow-lg mb-4">
-        <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-            <span>Invoice Details #{{ invoice.pk }}</span>
-            <span class="badge 
-                {% if invoice.status == 'transferred' %}bg-success
-                {% elif invoice.status == 'paid' %}bg-warning text-dark
-                {% else %}bg-secondary
-                {% endif %}"
-            >
-                Status: {{ invoice.get_status_display }}
-            </span>
-        </div>
-        
-        <div class="card-body">
-            
-            <h4>Request Details:</h4>
-            <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item"><strong>Company:</strong> {{ invoice.request.company_name }}</li>
-                <li class="list-group-item"><strong>Assigned Translator:</strong> {{ invoice.translator.user.username }}</li>
-            </ul>
-
-            <h4>Payment Summary:</h4>
-            <div class="alert alert-info d-flex justify-content-between align-items-center fw-bold">
-                <span>Amount Due:</span>
-                <span>{{ invoice.amount }} SAR</span>
-            </div>
-            
-            <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item"><strong>Issue Date:</strong> {{ invoice.issue_date|date:"Y-m-d H:i" }}</li>
-                <li class="list-group-item"><strong>Transfer Confirmed Date:</strong> 
-                    {% if invoice.transfer_confirmation_date %}
-                        <span class="text-success">{{ invoice.transfer_confirmation_date|date:"Y-m-d H:i" }}</span>
-                    {% else %}
-                        <span class="text-danger">Awaiting Transfer Confirmation</span>
-                    {% endif %}
-                </li>
-            </ul>
-
-            <hr>
-            <div class="mt-4 text-center">
-                
-                {% if request.user == invoice.request.company %}
-                    {% if invoice.status == 'issued' %}
-                        <p class="alert alert-warning">Please manually transfer the amount to the translator and then confirm the transfer below.</p>
-                        <a href="{% url 'payment:confirm_transfer' invoice_pk=invoice.pk %}" class="btn btn-success btn-lg">
-                            <i class="bi bi-check-circle-fill me-2"></i> Confirm Transfer to Translator
-                        </a>
-                    {% elif invoice.status == 'transferred' %}
-                        <p class="alert alert-success fw-bold">✅ Transfer confirmed successfully.</p>
-                    {% endif %}
-                
-                {% elif request.user == invoice.translator.user %}
-                    {% if invoice.status == 'transferred' %}
-                        <p class="alert alert-success fw-bold">✅ Payment transfer confirmed by the company. Please check your bank account.</p>
-                    {% else %}
-                        <p class="alert alert-info">Invoice issued: Amount is {{ invoice.amount }} SAR. Awaiting payment confirmation from the company.</p>
-                    {% endif %}
-                
-                {% endif %}
-
-            </div>
-
-        </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    .invoice-card {
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 8px 32px rgba(44, 44, 44, 0.13);
+        padding: 44px 32px 32px 32px;
+        max-width: 650px;
+        margin: 60px auto 40px auto;
+        font-family: 'Montserrat', Arial, sans-serif;
+        position: relative;
+    }
+    .invoice-icon-main {
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.7rem;
+        margin: -60px auto 18px auto;
+        box-shadow: 0 2px 12px #e1923d40;
+        border: 4px solid #fff;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        z-index: 2;
+    }
+    .invoice-header {
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border-radius: 16px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        padding: 18px 0 18px 0;
+        text-align: center;
+        margin-bottom: 28px;
+        box-shadow: 0 2px 12px #e1923d40;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+    }
+    .invoice-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+    .invoice-status-bar {
+        width: 120px;
+        height: 10px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        box-shadow: 0 2px 8px #e1923d40;
+    }
+    .invoice-status-label {
+        font-weight: 600;
+        color: #c46d20bc;
+        font-size: 1.05rem;
+    }
+    .invoice-section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #c46d20bc;
+        margin-bottom: 10px;
+        margin-top: 18px;
+        letter-spacing: 1px;
+    }
+    .invoice-list {
+        background: #f7f7fa;
+        border-radius: 14px;
+        padding: 18px 16px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px #e1923d20;
+        list-style: none;
+    }
+    .invoice-list li {
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .invoice-list strong {
+        min-width: 140px;
+        color: #444;
+        font-weight: 600;
+    }
+    .invoice-amount {
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        font-size: 1.25rem;
+        font-weight: 700;
+        border-radius: 12px;
+        padding: 18px 0;
+        text-align: center;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 12px #e1923d40;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+    .invoice-amount .fa-money-bill-wave {
+        font-size: 1.5rem;
+        margin-right: 8px;
+    }
+    .invoice-action {
+        margin-top: 32px;
+        text-align: center;
+    }
+    .invoice-btn {
+        display: inline-block;
+        padding: 14px 32px;
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: background 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+    .invoice-btn:hover {
+        background: linear-gradient(90deg, #d87f12a3, #d56b24d7);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .invoice-note {
+        font-size: 1.05rem;
+        color: #444;
+        margin-top: 18px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    @media (max-width: 700px) {
+        .invoice-card {
+            padding: 18px 6px;
+            max-width: 98vw;
+        }
+        .invoice-header {
+            font-size: 1.1rem;
+            padding: 12px 0;
+        }
+        .invoice-icon-main {
+            width: 54px;
+            height: 54px;
+            font-size: 1.7rem;
+            margin: -36px auto 12px auto;
+        }
+        .invoice-amount {
+            font-size: 1.05rem;
+            padding: 12px 0;
+        }
+    }
+</style>
+<div class="invoice-card">
+    <div class="invoice-icon-main">
+        <i class="fa fa-file-invoice-dollar"></i>
+    </div>
+    <div class="invoice-header">
+        Invoice Details #{{ invoice.pk }}
+    </div>
+    <div class="invoice-status">
+        <span class="invoice-status-label">
+            <i class="fa fa-info-circle"></i>
+            Status: {{ invoice.get_status_display }}
+        </span>
+        <div class="invoice-status-bar"></div>
+    </div>
+    <div class="invoice-section-title"><i class="fa fa-file-alt"></i> Request Details</div>
+    <ul class="invoice-list">
+        <li><strong>Company:</strong> {{ invoice.request.company_name }}</li>
+        <li><strong>Assigned Translator:</strong> {{ invoice.translator.user.username }}</li>
+    </ul>
+    <div class="invoice-section-title"><i class="fa fa-money-bill-wave"></i> Payment Summary</div>
+    <div class="invoice-amount">
+        <i class="fa fa-money-bill-wave"></i> Amount Due: {{ invoice.amount }} SAR
+    </div>
+    <ul class="invoice-list">
+        <li><strong>Issue Date:</strong> {{ invoice.issue_date|date:"Y-m-d H:i" }}</li>
+        <li><strong>Transfer Confirmed Date:</strong> 
+            {% if invoice.transfer_confirmation_date %}
+                <span class="text-success">{{ invoice.transfer_confirmation_date|date:"Y-m-d H:i" }}</span>
+            {% else %}
+                <span class="text-danger">Awaiting Transfer Confirmation</span>
+            {% endif %}
+        </li>
+    </ul>
+    <hr>
+    <div class="invoice-action">
+        {% if request.user == invoice.request.company %}
+            {% if invoice.status == 'issued' %}
+                <p class="invoice-note">Please manually transfer the amount to the translator and then confirm the transfer below.</p>
+                <a href="{% url 'payment:confirm_transfer' invoice_pk=invoice.pk %}" class="invoice-btn">
+                    <i class="fa fa-check-circle"></i> Confirm Transfer to Translator
+                </a>
+            {% elif invoice.status == 'transferred' %}
+                <p class="invoice-note text-success">✅ Transfer confirmed successfully.</p>
+            {% endif %}
+        {% elif request.user == invoice.translator.user %}
+            {% if invoice.status == 'transferred' %}
+                <p class="invoice-note text-success">✅ Payment transfer confirmed by the company. Please check your bank account.</p>
+            {% else %}
+                <p class="invoice-note">Invoice issued: Amount is {{ invoice.amount }} SAR. Awaiting payment confirmation from the company.</p>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}
