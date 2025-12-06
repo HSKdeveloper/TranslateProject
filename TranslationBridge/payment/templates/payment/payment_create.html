@@ -1,32 +1,206 @@
-{% extends "main/base.html" %}
 
+{% extends "main/base.html" %}
 {% load static %}
-{% block title %}تفاصيل الدفع{% endblock title %}
+{% block title %}Payment Details{% endblock title %}
+
 
 {% block content %}
-<div class="container py-5">
-    <div class="card shadow-lg mb-4">
-        <div class="card-header bg-dark text-white fw-bold">تفاصيل الطلب والدفع</div>
-        <div class="card-body">
-            <h5 class="mb-3">اسم المستخدم: <span class="text-primary">{{ user.username }}</span></h5>
-            <h5 class="mb-3">اسم الشركة: <span class="text-primary">{{ translation_request.company_name }}</span></h5>
-            <h5 class="mb-3">نوع الطلب: <span class="text-success">{{ translation_request.get_request_type_display }}</span></h5>
-            <h5 class="mb-3">وصف الطلب: <span>{{ translation_request.description }}</span></h5>
-            {% if translator %}
-                <hr>
-                <h5 class="mb-3">المترجم المختار:</h5>
-                <div class="d-flex align-items-center mb-2">
-                    <img src="{{ translator.image.url }}" alt="صورة المترجم" style="width:60px; height:60px; border-radius:50%; margin-left:15px;">
-                    <div>
-                        <div class="fw-bold">{{ translator.name }}</div>
-                        <div>المدينة: {{ translator.city.name }}</div>
-                        <div>الخبرة: {{ translator.experience }}</div>
-                        <div>التخصصات: {% for spec in translator.specialties.all %}{{ spec.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
-                        <div>اللغات: {% for lang in translator.languages.all %}{{ lang.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    body {
+        background: linear-gradient(120deg, #f7f7fa 0%, #e1923d1a 100%);
+    }
+    .payment-card {
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 8px 32px rgba(44, 44, 44, 0.13);
+        padding: 40px 32px 32px 32px;
+        max-width: 600px;
+        margin: 60px auto 40px auto;
+        font-family: 'Montserrat', Arial, sans-serif;
+        position: relative;
+    }
+    .payment-icon-main {
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.7rem;
+        margin: -60px auto 18px auto;
+        box-shadow: 0 2px 12px #e1923d40;
+        border: 4px solid #fff;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        z-index: 2;
+    }
+    .payment-header {
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border-radius: 16px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        padding: 18px 0 18px 0;
+        text-align: center;
+        margin-bottom: 28px;
+        box-shadow: 0 2px 12px #e1923d40;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+    }
+    .payment-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+    .payment-status-bar {
+        width: 120px;
+        height: 10px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        box-shadow: 0 2px 8px #e1923d40;
+    }
+    .payment-status-label {
+        font-weight: 600;
+        color: #c46d20bc;
+        font-size: 1.05rem;
+    }
+    .payment-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+        font-size: 1.08rem;
+    }
+    .payment-row .icon {
+        color: #c46d20bc;
+        font-size: 1.2rem;
+        margin-left: 10px;
+        margin-right: 6px;
+        min-width: 24px;
+        text-align: center;
+    }
+    .payment-label {
+        font-weight: 600;
+        color: #444;
+        min-width: 120px;
+    }
+    .payment-value {
+        color: #1a1a1a;
+        font-weight: 500;
+    }
+    .translator-section {
+        background: #f7f7fa;
+        border-radius: 14px;
+        padding: 18px 16px;
+        margin-top: 18px;
+        box-shadow: 0 2px 8px #e1923d20;
+    }
+    .translator-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-left: 18px;
+        box-shadow: 0 2px 8px #e1923d40;
+        object-fit: cover;
+    }
+    .translator-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 1rem;
+    }
+    .payment-btn {
+        display: block;
+        width: 100%;
+        margin: 32px auto 0 auto;
+        padding: 14px 0;
+        background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: background 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        letter-spacing: 1px;
+    }
+    .payment-btn:hover {
+        background: linear-gradient(90deg, #d87f12a3, #d56b24d7);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    @media (max-width: 700px) {
+        .payment-card {
+            padding: 18px 6px;
+            max-width: 98vw;
+        }
+        .payment-header {
+            font-size: 1.1rem;
+            padding: 12px 0;
+        }
+        .translator-img {
+            width: 44px;
+            height: 44px;
+            margin-left: 8px;
+        }
+        .payment-icon-main {
+            width: 54px;
+            height: 54px;
+            font-size: 1.7rem;
+            margin: -36px auto 12px auto;
+        }
+    }
+</style>
+<div class="payment-card">
+    <div class="payment-icon-main">
+        <i class="fa fa-credit-card"></i>
     </div>
+    <div class="payment-header">
+        Payment & Request Details
+    </div>
+    <div class="payment-status">
+        <span class="payment-status-label"><i class="fa fa-check-circle"></i> Awaiting Payment</span>
+        <div class="payment-status-bar"></div>
+    </div>
+    <div class="payment-row">
+        <span class="icon"><i class="fa fa-user"></i></span>
+        <span class="payment-label">Username:</span>
+        <span class="payment-value">{{ user.username }}</span>
+    </div>
+    <div class="payment-row">
+        <span class="icon"><i class="fa fa-building"></i></span>
+        <span class="payment-label">Company Name:</span>
+        <span class="payment-value">{{ translation_request.company_name }}</span>
+    </div>
+    <div class="payment-row">
+        <span class="icon"><i class="fa fa-file-alt"></i></span>
+        <span class="payment-label">Request Type:</span>
+        <span class="payment-value">{{ translation_request.get_request_type_display }}</span>
+    </div>
+    <div class="payment-row">
+        <span class="icon"><i class="fa fa-align-left"></i></span>
+        <span class="payment-label">Description:</span>
+        <span class="payment-value">{{ translation_request.description }}</span>
+    </div>
+    {% if translator %}
+        <div class="translator-section d-flex align-items-center">
+            <img src="{{ translator.image.url }}" alt="Translator Image" class="translator-img">
+            <div class="translator-info">
+                <div class="fw-bold">{{ translator.name }}</div>
+                <div><span class="icon"><i class="fa fa-map-marker-alt"></i></span> City: {{ translator.city.name }}</div>
+                <div><span class="icon"><i class="fa fa-briefcase"></i></span> Experience: {{ translator.experience }}</div>
+                <div><span class="icon"><i class="fa fa-star"></i></span> Specialties: {% for spec in translator.specialties.all %}{{ spec.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+                <div><span class="icon"><i class="fa fa-language"></i></span> Languages: {% for lang in translator.languages.all %}{{ lang.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+            </div>
+        </div>
+    {% endif %}
+    <button class="payment-btn"><i class="fa fa-money-check-alt"></i> Pay Now</button>
 </div>
 {% endblock %}

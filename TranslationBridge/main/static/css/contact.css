@@ -1,51 +1,153 @@
 
-.contact-box {
-  background: rgba(248, 241, 241, 0.235);
-  box-shadow: 0 4px 24px rgba(8, 20, 80, 0.513);
-  border-radius: 18px;
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 2.5rem 2rem;
+/* خلفية الصفحة */
+.contact-bg {
+		background: url('../images/contact.jpg') no-repeat center center;
+		background-size: cover;
+		min-height: 80vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		z-index: 1;
+}
+
+/* الحاوية الرئيسية */
+.contact-overlay {
+			background: rgba(255, 255, 255, 0.336); /* خفف الشفافية */
+			border-radius: 18px;
+			box-shadow: 0 4px 32px rgba(8, 20, 80, 0.13);
+			width: 90%;
+			max-width: 900px;
+			margin: 80px auto 40px auto;
+			display: flex;
+			flex-direction: row;
+			padding: 0;
+			min-height: 420px;
+			overflow: hidden;
+			z-index: 2;
+}
+
+/* الحقول على اليسار */
+.contact-form-side {
+			flex: 1.1;
+			padding: 60px 24px 32px 32px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			background: transparent;
+}
+.contact-form-side h2 {
+		font-weight: bold;
+		color: #c46d20bc;
+		margin-bottom: 24px;
 }
 .input-group {
-  margin-bottom: 18px;
-  display: flex;
-  flex-direction: column;
+		margin-bottom: 12px;
+		display: flex;
+		flex-direction: column;
 }
 .input-group label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #161412b0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+	font-weight: 600;
+	margin-bottom: 6px;
+	color: #161412b0;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 .input-group input,
 .input-group textarea {
-  border-radius: 10px;
-  border: 1px solid #d8212164;
-  padding: 10px;
-  font-size: 1rem;
-  background: #ffffff38; /* هذا حق اللي داخل*/
-  transition: border 0.2s;
+	border-radius: 8px;
+	border: 1px solid #d8212164;
+	padding: 7px 10px;
+	font-size: 0.97rem;
+	background: #ffffff38;
+	transition: border 0.2s;
+	max-width: 320px;
+}
+.input-group input:focus,
+.input-group textarea {
+	min-height: 70px;
+	max-width: 320px;
 }
 .input-group input:focus,
 .input-group textarea:focus {
-  border-color: #aa1e1e;
-  outline: none;
+	border-color: #aa1e1e;
+	outline: none;
 }
 .btn-main {
-  background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
-  color: #f5efef;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 0;
-  font-weight: 600;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: background 0.2s, box-shadow 0.2s;
+		background: linear-gradient(90deg, #e1923d80, #f99a1ed6, #c46d20bc);
+		color: #f5efef;
+		border: none;
+		border-radius: 8px;
+		padding: 10px 0;
+		font-weight: 600;
+		font-size: 1rem;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+		transition: background 0.2s, box-shadow 0.2s;
+		max-width: 320px;
 }
 .btn-main:hover {
-  background: linear-gradient(90deg, #d87f12a3, #d56b24d7);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+	background: linear-gradient(90deg, #d87f12a3, #d56b24d7);
+	box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* بيانات الشركة على اليمين */
+.contact-info-side {
+			flex: 1;
+			background: rgba(245, 245, 245, 0.7);
+			padding: 32px 24px 32px 24px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.05rem;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			color: #2d2d2d;
+			border-left: 2px solid #e1923d80;
+}
+.contact-info-side h3 {
+		font-size: 1.25rem;
+		margin-bottom: 14px;
+		color: #c46d20bc;
+		font-weight: bold;
+}
+		.contact-info-side .contact-info-note {
+			margin-top: 32px;
+			color: #aa1e1e;
+			font-size: 1.05rem;
+			text-align: center;
+			width: 100%;
+		}
+.contact-info-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.contact-info-list li {
+		margin-bottom: 12px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 1rem;
+}
+.contact-info-list i {
+	color: #aa1e1e;
+	font-size: 1.2rem;
+}
+
+@media (max-width: 900px) {
+		.contact-overlay {
+			flex-direction: column;
+			min-height: 0;
+			background: rgba(255,255,255,0.7);
+		}
+		.contact-form-side, .contact-info-side {
+			padding: 18px 10px;
+			align-items: flex-start;
+		}
+		.contact-info-side {
+			border-left: none;
+			border-top: 2px solid #e1923d80;
+			align-items: flex-start;
+		}
 }
