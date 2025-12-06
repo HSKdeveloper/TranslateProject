@@ -10,6 +10,9 @@ from .forms import TranslationRequestForm
 from companies.models import Language, City 
 from translators.models import specialty, Translator, City, Language
 from django.contrib import messages
+
+from companies.models import Company
+
 from .models import TranslationRequest
 
 
@@ -52,14 +55,19 @@ def request_list_view(request: HttpRequest):
 def request_detail_view(request: HttpRequest, pk: int):
 
     translation_request = TranslationRequest.objects.get(pk=pk)
+    companies = Company.objects.all()
+
     related_requests = TranslationRequest.objects.filter(
         location=translation_request.location
     ).exclude(pk=pk)[:3]
 
     return render(request, "translation_request/request_detail.html", {
         "translation_request": translation_request,
-        "related_requests": related_requests
+        "related_requests": related_requests,
+        "companies":companies
     })
+
+
 
 def request_update_view(request: HttpRequest, pk: int):
     translation_request = TranslationRequest.objects.get(pk=pk)
