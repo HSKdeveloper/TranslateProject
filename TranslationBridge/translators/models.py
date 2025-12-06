@@ -66,7 +66,7 @@ class Translator(models.Model):
 
 #Users review 
 class Review(models.Model):
-
+    translator = models.ForeignKey( Translator, on_delete=models.CASCADE )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.SmallIntegerField()
     comment = models.TextField()
@@ -76,4 +76,4 @@ class Review(models.Model):
     translator = models.ForeignKey( Translator, on_delete=models.CASCADE )
 
     def __str__(self):
-        return f"{self.user.username} on {self.translator.user}"
+        return f"{self.user.username}"

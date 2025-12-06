@@ -10,7 +10,7 @@ class Profile(models.Model):
         ('company', 'Company'),
         ('other', 'Other'),
     ]
-
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to='images/avatars', default="images/avatars/default.png")

@@ -1,4 +1,3 @@
-
 <style>
 body {
   background-image: url('/static/images/back.jpg');
@@ -44,8 +43,9 @@ body {
                 <span class="badge bg-info ms-auto">{{ req.company_type }}</span>
               </div>
               <small class="text-muted mb-2">Type: {{ req.request_type }}</small>
+              <small class="text-muted mb-2">Status: {{ req.status }}</small>
               <p class="card-text flex-grow-1">{{ req.description|truncatewords:15 }}</p>
-              <a href="#" class="btn btn-outline-primary btn-sm mt-2 w-100">Details</a>
+              <a href="{% url 'translation_request:request_detail_view' req.pk %}" class="btn btn-outline-primary btn-sm mt-2 w-100">Details</a>
             </div>
           </div>
         </div>

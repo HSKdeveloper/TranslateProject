@@ -1,0 +1,158 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+{% block title %}Translation Request update{% endblock title %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url('/static/images/back.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f0f2f5;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f8fc;
+    border-radius: 12px;
+    color: #2471A3;
+    font-size: 1.3rem;
+    box-shadow: 0 2px 8px #e3eafc80;
+  }
+  .info-label {
+    min-width: 160px;
+    font-weight: 600;
+    color: #1761a0;
+    letter-spacing: 0.5px;
+    font-size: 1.08rem;
+  }
+  .info-value {
+    font-size: 1.18rem;
+    color: #222;
+    font-weight: 500;
+    word-break: break-word;
+  }
+</style>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-9 col-xl-8">
+      <div class="card border-0 shadow-lg" style="border-radius: 32px; background: #fff; box-shadow: 0 8px 32px #2471a350;">
+        <div class="card-body p-5 p-md-5 p-lg-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bold mb-2" style="color:#1761a0; letter-spacing:1.5px; font-size:2.3rem;">Request Details</h1>
+            <p class="text-secondary mb-0 fs-5">Full information about {{ form.company_name.value }} request</p>
+          </div>
+          <form action="{% url 'translation_request:request_update_view' form.instance.pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mx-auto" style="max-width: 600px;">
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-building"></i></span>
+                <span class="info-label">Company Name</span>
+                <span class="info-value w-100">{{ form.company_name }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-briefcase"></i></span>
+                <span class="info-label">Company Type</span>
+                <span class="info-value w-100">{{ form.company_type }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-list-task"></i></span>
+                <span class="info-label">Request Type</span>
+                <span class="info-value w-100">{{ form.request_type }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-chat-left-text"></i></span>
+                <span class="info-label">Description</span>
+                <span class="info-value w-100">{{ form.description }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-translate"></i></span>
+                <span class="info-label">Language</span>
+                <span class="info-value w-100">{{ form.language }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-award"></i></span>
+                <span class="info-label">Specialty</span>
+                <span class="info-value w-100">{{ form.specialty }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-paperclip"></i></span>
+                <span class="info-label">File</span>
+                <span class="info-value w-100">{{ form.file }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-clock-history"></i></span>
+                <span class="info-label">Translation Duration</span>
+                <span class="info-value w-100">{{ form.duration_days }}</span>
+              </div>
+              <!-- Hire a Translator fields -->
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-person"></i></span>
+                <span class="info-label">Translator Name</span>
+                <span class="info-value w-100">{{ form.translator_name }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-person-badge"></i></span>
+                <span class="info-label">Translator Specialty</span>
+                <span class="info-value w-100">{{ form.translator_specialty }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-calendar-event"></i></span>
+                <span class="info-label">Start Date</span>
+                <span class="info-value w-100">{{ form.translator_start_date }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-hourglass-split"></i></span>
+                <span class="info-label">Duration (days)</span>
+                <span class="info-value w-100">{{ form.translator_duration_days }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon"><i class="bi bi-translate"></i></span>
+                <span class="info-label">Translator Language</span>
+                <span class="info-value w-100">{{ form.translator_language }}</span>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-light px-4 py-2 fw-bold" style="font-size:1.1rem; letter-spacing:1px;">Save Changes </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if related_requests %}
+  <div class="mt-5">
+    <h4 class="mb-3" style="color:#2471A3;">Similar Requests in the Same City</h4>
+    <div class="row">
+      {% for req in related_requests %}
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ req.company_name }}</h5>
+              <p class="card-text">
+                Type: {{ req.request_type }}<br>
+                City: {{ req.location }}<br>
+                Description: {{ req.description|truncatechars:60 }}
+              </p>
+              <a href="{% url 'translation_request:request_detail_view' req.pk %}" class="btn btn-outline-primary btn-sm">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+{% endblock content %}

@@ -57,32 +57,37 @@
             </div>
             <!-- ========== قسم طلب مترجم ========== -->
             <div id="hire-section" style="display:none;">
-              <h4 class="mt-4 text-center fw-semibold" style="color:#e3e3e3;">Hire a Translator</h4>
-              <div class="mb-3">
-                  <label>Translator Name:</label>
-                  <input type="text" name="translator_name" class="form-control">
-              </div>
-              <div class="mb-3">
-                  <label>Translator Specialty:</label>
-                  <input type="text" name="translator_specialty" class="form-control">
-              </div>
-              <div class="mb-3">
-                  <label>Start Date:</label>
-                  <input type="date" name="translator_start_date" class="form-control">
-              </div>
-              <div class="mb-3">
-                  <label>Duration (days):</label>
-                  <input type="number" name="translator_duration_days" class="form-control">
-              </div>
-              <div class="mb-3">
-                  <label>Translator Language:</label>
-                  <select name="translator_language" class="form-control">
-                      <option value="">-- Select Language --</option>
-                      {% for lang in languages %}
-                          <option value="{{ lang.id }}">{{ lang.name }}</option>
-                      {% endfor %}
-                  </select>
-              </div>
+                <h4 class="mt-4 text-center fw-semibold" style="color:#e3e3e3;">Hire a Translator</h4>
+
+                <div class="mb-3">
+                    <label>City:</label>
+                    <input type="text" name="city" class="form-control" placeholder="Enter city">
+                </div>
+
+                <div class="mb-3">
+                    <label>Required Specialty:</label>
+                    <input type="text" name="specialty" class="form-control" placeholder="e.g. Legal, Medical, Technical">
+                </div>
+
+                <div class="mb-3">
+                    <label>Translator Language:</label>
+                    <select name="language" class="form-control">
+                        <option value="">-- Select Language --</option>
+                        {% for lang in languages %}
+                            <option value="{{ lang.id }}">{{ lang.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Start Date:</label>
+                    <input type="date" name="start_date" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Duration (days):</label>
+                    <input type="number" name="duration_days" class="form-control" placeholder="e.g. 3">
+                </div>
             </div>
             <!-- زر الإرسال -->
             <button type="submit" class="btn btn-dark mt-4 w-100" style="font-size:20px; letter-spacing:1px;">

@@ -1,6 +1,7 @@
 from django.db import models
 from companies.models import Language
-
+from django.contrib.auth.models import User
+from translators.models import Translator
 # Create your models here.
 
 class TranslationRequest(models.Model):
@@ -14,10 +15,19 @@ class TranslationRequest(models.Model):
         GOVERNMENT = 'government', 'Government'
         PRIVATE = 'private', 'Private'    
 
+    class StatusChoices(models.TextChoices):
+        PENDING = "pending", "Pending"
+        ASSIGNED = "assigned", "Assigned"
+        ACCEPTED = "accepted", "Accepted"
+        REJECTED = "rejected", "Rejected"    
+    # -------- الشركة (User) --------
+    company = models.ForeignKey(User, on_delete=models.CASCADE, related_name="company_requests", null=True, blank=True)
     # -------- الحقول المشتركة --------
     company_name = models.CharField(max_length=200)
     company_type = models.CharField(max_length=20, choices=CompnyTypeChoices.choices)
     request_type = models.CharField(max_length=20, choices=RequestTypeChoices.choices)
+    specialty = models.CharField(max_length=100, null=True, blank=True)
+    language = models.ForeignKey(Language, on_delete=models.PROTECT, null=True, blank=True)
 
     # -------- معلومات عامة --------
     description = models.TextField(null=True, blank=True)
@@ -26,17 +36,22 @@ class TranslationRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # -------- الترجمة الفورية --------
-    language = models.ForeignKey(Language, on_delete=models.PROTECT, null=True,blank=True)
-    specialty = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(upload_to="pdf/", null=True, blank=True)
     duration_days = models.CharField(max_length=50, null=True, blank=True)
 
     # -------- طلب مترجم --------
-    translator_name = models.CharField(max_length=100, null=True, blank=True)
-    translator_specialty = models.CharField(max_length=100, null=True, blank=True)
-    translator_start_date = models.DateField(null=True, blank=True)
-    translator_duration_days = models.CharField(max_length=50, null=True, blank=True)
-    translator_language = models.ManyToManyField(Language, related_name="translator_languages", blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+
+    # -------- المترجم المعيّن بعد الاختيار --------
+    translator = models.ForeignKey(Translator, on_delete=models.SET_NULL, null=True, blank=True, related_name="assigned_requests")
+
+    # -------- حالة الطلب --------
+    status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.PENDING)
 
     def __str__(self):
-        return f"{self.company_name} - {self.request_type}"
+        return f"{self.company_name} - {self.request_type} - {self.status}"
+    
+
+
+    

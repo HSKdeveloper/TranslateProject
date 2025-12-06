@@ -11,7 +11,7 @@
         z-index: -1;
         width: 100%;
         height: 100vh;
-        background-image: url('/static/images/row-bg.jpg'); 
+        background-image: url('/static/images/back.jpg'); 
         background-size: cover;
         background-position: center;
         background-attachment: fixed; /* عشان تتحرك الصفحة والصورة تبقى ثابتة */
@@ -223,6 +223,7 @@
     {% include 'translators/translators_include_list.html' %}
 
 <!-- Pagination settings -->
+
 <div class="pagination-container d-flex justify-content-center align-items-center mt-5 mb-5 w-100">
     
     <div class="d-flex align-items-center gap-4">
@@ -247,6 +248,15 @@
         
     </div>
     
+</div>
+
+<a href="{% url 'translation_request:request_create_view' %}" class="btn btn-success d-flex align-items-center justify-content-center" style="position: fixed; top: 100px; right: 30px; width:56px; height:56px; border-radius:50%; box-shadow:0 2px 8px #2471a350; font-size:2rem; z-index:1000;">
+  <i class="bi bi-plus"></i>
+</a>
+<div class="d-flex justify-content-end" style="position: fixed; top: 170px; right: 30px; margin-bottom: 20px; z-index:1000;">
+    <a href="{% url 'translation_request:request_list_view' %}" class="icon-box shadow d-flex align-items-center justify-content-center" style="width:56px; height:56px; border-radius:16px; background:#fff; border:2px solid #e3e3e3;">
+        <i class="bi bi-grid-3x3-gap-fill fs-2" style="color:#1a237e;"></i>
+    </a>
 </div>
 
 </section>

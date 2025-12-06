@@ -14,7 +14,6 @@ def sign_up(request:HttpRequest):
 
     if request.method == "POST":
         try:
-           with transaction.atomic():
             new_user = User.objects.create_user(username=request.POST["username"],password=request.POST["password"],email=request.POST["email"], first_name=request.POST["first_name"], last_name=request.POST["last_name"])
             new_user.save()
 
@@ -60,7 +59,8 @@ def log_out (request:HttpRequest):
 def profile_view(request:HttpRequest):
 
     try:
-        user = User.objects.get(username=request.user.username)    
+        user = User.objects.get(username=request.user.username)
+        
     except :
         return render(request, "accounts/404.html")
 
@@ -68,7 +68,6 @@ def profile_view(request:HttpRequest):
 
 #Profile update view
 def update_profile_view(request:HttpRequest):
-
     if not request.user.is_authenticated:
         messages.warning(request, "You need to sign in first to update your profile", "alert-warning")
         return redirect("accounts:sign_in")
@@ -76,15 +75,21 @@ def update_profile_view(request:HttpRequest):
     if request.method == "POST":
         try:
             with transaction.atomic():
-                user:User = request.user
-                user.first_name=request.POST['first_name']
-                user.last_name=request.POST['last_name']
-                user.email=request.POST['email']
+                user: User = request.user
+                user.first_name = request.POST['first_name']
+                user.last_name = request.POST['last_name']
+                user.email = request.POST['email']
                 user.save()
 
-                profile:Profile = user.profile
-                profile.bio=request.POST['bio']
-                profile.avatar=request.FILES.get('avatar', profile.avatar)
+                # معالجة عدم وجود Profile
+                try:
+                    profile: Profile = user.profile
+                except Profile.DoesNotExist:
+                    profile = Profile.objects.create(user=user)
+
+                profile.bio = request.POST['bio']
+                if 'avatar' in request.FILES:
+                    profile.avatar = request.FILES['avatar']
                 profile.save()
 
             messages.success(request, "Profile updated successfuly", "alert-success")

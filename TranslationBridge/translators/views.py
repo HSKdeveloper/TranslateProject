@@ -70,7 +70,26 @@ def translator_detail_view(request:HttpRequest, translators_id:int):
 
     return render(request, 'translators/translators_detail.html',{ "translator" : translator })
 
+def review_view(request:HttpRequest, translator_id:int):
 
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to add a review", "alert-danger")
+        return redirect("accounts:sign_in")
+
+    if request.method == "POST":
+        translator_object = Translator.objects.get(pk=translator_id)
+        new_review = Review(
+            translator=translator_object,
+            user=request.user,
+            rating=request.POST.get("rating", 5),
+            comment=request.POST.get("comment", "")
+        )
+        new_review.save()
+        messages.success(request, "Review added successfully!", "alert-success")
+
+
+    return redirect("translators:translator_detail_view", translators_id=translator_id)
+ 
 #Translator update information
 def translator_update_view(request:HttpRequest, translators_id):
 
@@ -93,8 +112,6 @@ def translator_update_view(request:HttpRequest, translators_id):
     return render(request, "translators/translators_update.html", {"translator": translator, "cities": all_cities, "languages":languages, "specialties":specialties})
            
 
-
-
 #Translator delete information
 def translator_delete_view(request:HttpRequest, translator_id:int):
 
@@ -107,3 +124,4 @@ def translator_delete_view(request:HttpRequest, translator_id:int):
         messages.error(request, "Couldn't delete translator information", "alert-danger")
 
     return redirect("translators:translator_list_view")
+

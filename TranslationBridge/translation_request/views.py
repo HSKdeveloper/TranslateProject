@@ -1,8 +1,8 @@
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from .forms import TranslationRequestForm
-from companies.models import Language
+from companies.models import Language, City 
+from translators.models import specialty, Translator, City, Language
 from django.contrib import messages
 from .models import TranslationRequest
 
@@ -17,7 +17,8 @@ def request_create_view(request: HttpRequest):
         if form.is_valid():
             form.save()
             messages.success(request, "Add Translator information successfully!", "alert-success")
-            return redirect('translation_request:request_list_view')  #
+
+            return redirect('translation_request:request_matched_view', request_id=form.instance.id)  
         else:
             print("Form not valid", form.errors)
    else:
@@ -53,6 +54,74 @@ def request_detail_view(request: HttpRequest, pk: int):
     })
 
 def request_update_view(request: HttpRequest, pk: int):
-    pass
+    translation_request = TranslationRequest.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = TranslationRequestForm(request.POST, request.FILES, instance=translation_request)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Request updated successfully!", "alert-success")
+            return redirect('translation_request:request_detail_view', pk=pk)
+        else:
+            messages.error(request, "Please correct the errors below.", "alert-danger")
+    else:
+        form = TranslationRequestForm(instance=translation_request)
+    return render(request, "translation_request/request_update.html", {"form": form, "translation_request": translation_request})
+
+
 def request_delete_view(request: HttpRequest, pk: int):
-    pass
+    translation_request = TranslationRequest.objects.get(pk=pk)
+    translation_request.delete()
+    messages.success(request, "Request deleted successfully!", "alert-success")
+    return redirect('translation_request:request_list_view')
+
+def request_matched_view(request: HttpRequest, request_id: int):
+
+    translation_request = TranslationRequest.objects.get(pk=request_id)
+
+    # البحث عن المدينة
+    city_obj = None
+    if translation_request.city:
+        city_obj = City.objects.filter(name__iexact=translation_request.city).first()
+
+    # البحث عن اللغة
+    language_obj = None
+    if translation_request.language:
+        if isinstance(translation_request.language, Language):
+            language_obj = translation_request.language
+        else:
+            language_obj = Language.objects.filter(name__iexact=str(translation_request.language)).first()
+
+    # البحث عن التخصص
+    specialty_obj = None
+    if translation_request.specialty:
+        specialty_obj = specialty.objects.filter(name__iexact=translation_request.specialty).first()
+
+    # فلترة المترجمين
+    matched_translators = Translator.objects.all()
+    # فلترة فقط إذا كانت القيم كائنات نموذج صحيحة
+    if city_obj is not None and isinstance(city_obj, City):
+        matched_translators = matched_translators.filter(city=city_obj)
+    if language_obj is not None and isinstance(language_obj, Language):
+        matched_translators = matched_translators.filter(languages=language_obj)
+    if specialty_obj is not None and isinstance(specialty_obj, specialty):
+        matched_translators = matched_translators.filter(specialties=specialty_obj)
+
+    matched_translators = matched_translators.distinct()
+
+    return render(request, "translation_request/request_matched.html", {
+        "translation_request": translation_request,
+        "matched_translators": matched_translators
+    })
+
+def assign_translator(request, request_id, translator_id):
+
+    translation_request = get_object_or_404(TranslationRequest, id=request_id)
+    translator = get_object_or_404(Translator, id=translator_id)
+
+    # تعيين المترجم للطلب وتغيير الحالة
+    translation_request.translator = translator
+    translation_request.status = TranslationRequest.StatusChoices.ASSIGNED
+    translation_request.save()
+    messages.success(request, "Translator assigned successfully!", "alert-success")
+    return redirect('translation_request:request_list_view')

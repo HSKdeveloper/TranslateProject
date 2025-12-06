@@ -6,7 +6,22 @@ from .models import TranslationRequest
 class TranslationRequestForm(forms.ModelForm):
     class Meta:
         model = TranslationRequest
-        fields = '__all__'
+        fields = [
+            'company_name',
+            'company_type',
+            'request_type',
+            'description',
+            'cost',
+            'location',
+            'language',
+            'specialty',
+            'file',
+            'duration_days',
+            'start_date',
+            'city',
+            'status'
+   
+        ]
 
         widgets = {
             "company_name": forms.TextInput(attrs={

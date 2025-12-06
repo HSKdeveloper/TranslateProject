@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+{% block title %}Matched Translators{% endblock title %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-end" style="margin-top: 140px; margin-bottom: 20px;">
+    <a href="{% url 'translation_request:request_list_view' %}" class="icon-box shadow d-flex align-items-center justify-content-center" style="width:60px; height:60px; border-radius:16px; background:#fff; border:2px solid #e3e3e3; margin-right:40px;">
+        <i class="bi bi-grid-3x3-gap-fill fs-2" style="color:#1a237e;"></i>
+    </a>
+</div>
+<div class="container mt-5">
+
+    <h2 class="text-center fw-bold mb-4">Matched Translators</h2>
+
+    <p class="text-center text-muted">
+        Translators matching your request.
+    </p>
+
+    <div class="row">
+
+        {% if matched_translators %}
+            {% for translator in matched_translators %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg p-3">
+
+                        <h4 class="fw-bold">{{ translator.name }}</h4>
+
+                        <p><strong>City:</strong> {{ translator.city }}</p>
+
+                        <p><strong>Specialty:</strong> {{ translator.specialty }}</p>
+
+                        <p><strong>Languages:</strong>
+                            {% for lang in translator.languages.all %}
+                                {{ lang.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+
+                        <a href="{% url 'translators:translator_detail_view' translator.id %}" class="btn btn-dark mt-2 w-100">Select Translator</a>
+                        <form method="post" action="{% url 'translation_request:assign_translator' translation_request.id translator.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-primary mt-2 w-100 d-flex align-items-center justify-content-center" style="font-weight:bold; font-size:1.1rem;">
+                                <i class="bi bi-plus-circle me-2" style="font-size:1.4rem;"></i> Add This Translator
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center mt-5">
+                <h4 class="text-danger">No matching translators found.</h4>
+                <p>Try adjusting your request details.</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<style>
+.icon-box:hover {
+    box-shadow: 0 4px 16px #c8b08b33;
+    background: #f7f7f7;
+    border-color: #a67c52;
+}
+</style>
+
+{% endblock %}

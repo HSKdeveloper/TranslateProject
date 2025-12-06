@@ -30,8 +30,8 @@
                 <input type="email" id="email" name="email" required value="{{request.user.email}}">
             </div>
                 <div class="input-group">
-                <label for="message"><i class="fa fa-comment"></i> Bio</label>
-                <textarea id="message" name="message" rows="4" required>{{request.user.profile.bio}}</textarea>
+                <label for="bio"><i class="fa fa-comment"></i> Bio</label>
+                <textarea id="bio" name="bio" rows="4" required>{{request.user.profile.bio}}</textarea>
             </div>
             <h4>Choose Avatar </h4>
                 <img src="{{request.user.profile.avatar.url}}" alt="Current Avatar" style="width:80px; height:80px; object-fit:cover; border-radius:50%; box-shadow:0 0 12px #c8b08b99; margin-bottom:8px;" />
