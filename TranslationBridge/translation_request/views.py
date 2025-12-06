@@ -1,5 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest
+
+#for sending email message
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
 from .forms import TranslationRequestForm
 from companies.models import Language, City 
 from translators.models import specialty, Translator, City, Language

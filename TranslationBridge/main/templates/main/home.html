@@ -15,7 +15,9 @@
     <div class="scroll">
         <ul>
             <li><a href="#about">About Us <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
-            <li><a href="#join">Join Us   <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
+            {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'accounts:sign_up' %}">Join Us   <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
+            {% endif %}
             <li><a href="{% url 'main:contact_view' %}">Contact  <i class="fa-solid fa-chevron-down fa-2x"></i></a></li>
         </ul>
     </div>

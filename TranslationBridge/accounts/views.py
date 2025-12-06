@@ -6,6 +6,10 @@ from .models import Profile
 from django.contrib import messages
 from django.db import transaction
 
+#for sending email message
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -20,6 +24,14 @@ def sign_up(request:HttpRequest):
             #create user profile
             profile=Profile(user=new_user, bio=request.POST["bio"],user_type=request.POST["user_type"], avatar=request.FILES.get("avatar", Profile.avatar.field.get_default()))
             profile.save()
+
+            #send confirmation email
+            content_html = render_to_string ("accounts/mail/configration.html")
+            send_to = new_user.email
+            email_message = EmailMessage("Message sending confirmation",  content_html, settings.EMAIL_HOST_USER, {send_to})
+            email_message.content_subtype = "html"
+
+            email_message.send()  
 
             messages.success(request, "Registered user successfuly", "alert-success")
             return redirect("accounts:sign_in")
