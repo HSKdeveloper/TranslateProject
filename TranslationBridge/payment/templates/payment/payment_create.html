@@ -1,15 +1,32 @@
 {% extends "main/base.html" %}
 
 {% load static %}
-{% block title %}Pyment page{% endblock title %}
+{% block title %}تفاصيل الدفع{% endblock title %}
 
 {% block content %}
-
-
-<h1>Pyment</h1>
-
-
-
-
-
+<div class="container py-5">
+    <div class="card shadow-lg mb-4">
+        <div class="card-header bg-dark text-white fw-bold">تفاصيل الطلب والدفع</div>
+        <div class="card-body">
+            <h5 class="mb-3">اسم المستخدم: <span class="text-primary">{{ user.username }}</span></h5>
+            <h5 class="mb-3">اسم الشركة: <span class="text-primary">{{ translation_request.company_name }}</span></h5>
+            <h5 class="mb-3">نوع الطلب: <span class="text-success">{{ translation_request.get_request_type_display }}</span></h5>
+            <h5 class="mb-3">وصف الطلب: <span>{{ translation_request.description }}</span></h5>
+            {% if translator %}
+                <hr>
+                <h5 class="mb-3">المترجم المختار:</h5>
+                <div class="d-flex align-items-center mb-2">
+                    <img src="{{ translator.image.url }}" alt="صورة المترجم" style="width:60px; height:60px; border-radius:50%; margin-left:15px;">
+                    <div>
+                        <div class="fw-bold">{{ translator.name }}</div>
+                        <div>المدينة: {{ translator.city.name }}</div>
+                        <div>الخبرة: {{ translator.experience }}</div>
+                        <div>التخصصات: {% for spec in translator.specialties.all %}{{ spec.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+                        <div>اللغات: {% for lang in translator.languages.all %}{{ lang.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
