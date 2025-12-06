@@ -44,7 +44,7 @@ class Translator(models.Model):
         STAR4 = 4, "Four Stars"
         STAR5 = 5, "Five Stars"
 
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to="images/", default="images/default.jpg")
     experience = models.TextField()

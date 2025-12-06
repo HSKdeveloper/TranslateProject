@@ -1,0 +1,72 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Invoice Details #{{ invoice.pk }}{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg mb-4">
+        <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+            <span>Invoice Details #{{ invoice.pk }}</span>
+            <span class="badge 
+                {% if invoice.status == 'transferred' %}bg-success
+                {% elif invoice.status == 'paid' %}bg-warning text-dark
+                {% else %}bg-secondary
+                {% endif %}"
+            >
+                Status: {{ invoice.get_status_display }}
+            </span>
+        </div>
+        
+        <div class="card-body">
+            
+            <h4>Request Details:</h4>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Company:</strong> {{ invoice.request.company_name }}</li>
+                <li class="list-group-item"><strong>Assigned Translator:</strong> {{ invoice.translator.user.username }}</li>
+            </ul>
+
+            <h4>Payment Summary:</h4>
+            <div class="alert alert-info d-flex justify-content-between align-items-center fw-bold">
+                <span>Amount Due:</span>
+                <span>{{ invoice.amount }} SAR</span>
+            </div>
+            
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Issue Date:</strong> {{ invoice.issue_date|date:"Y-m-d H:i" }}</li>
+                <li class="list-group-item"><strong>Transfer Confirmed Date:</strong> 
+                    {% if invoice.transfer_confirmation_date %}
+                        <span class="text-success">{{ invoice.transfer_confirmation_date|date:"Y-m-d H:i" }}</span>
+                    {% else %}
+                        <span class="text-danger">Awaiting Transfer Confirmation</span>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <hr>
+            <div class="mt-4 text-center">
+                
+                {% if request.user == invoice.request.company %}
+                    {% if invoice.status == 'issued' %}
+                        <p class="alert alert-warning">Please manually transfer the amount to the translator and then confirm the transfer below.</p>
+                        <a href="{% url 'payment:confirm_transfer' invoice_pk=invoice.pk %}" class="btn btn-success btn-lg">
+                            <i class="bi bi-check-circle-fill me-2"></i> Confirm Transfer to Translator
+                        </a>
+                    {% elif invoice.status == 'transferred' %}
+                        <p class="alert alert-success fw-bold">✅ Transfer confirmed successfully.</p>
+                    {% endif %}
+                
+                {% elif request.user == invoice.translator.user %}
+                    {% if invoice.status == 'transferred' %}
+                        <p class="alert alert-success fw-bold">✅ Payment transfer confirmed by the company. Please check your bank account.</p>
+                    {% else %}
+                        <p class="alert alert-info">Invoice issued: Amount is {{ invoice.amount }} SAR. Awaiting payment confirmation from the company.</p>
+                    {% endif %}
+                
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

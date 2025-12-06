@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpRequest
 
 #for sending email message
 from django.conf import settings
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.template.loader import render_to_string
 
 from .forms import TranslationRequestForm
@@ -14,6 +14,8 @@ from django.contrib import messages
 from companies.models import Company
 
 from .models import TranslationRequest
+
+from django.urls import reverse 
 
 
 # Create your views here.
@@ -141,3 +143,56 @@ def assign_translator(request, request_id, translator_id):
     translation_request.save()
     messages.success(request, "Translator assigned successfully!", "alert-success")
     return redirect('translation_request:request_list_view')
+
+
+def request_accept_view(request: HttpRequest, pk: int):
+    translation_request = get_object_or_404(TranslationRequest, pk=pk)
+
+    # 1. التحقق من الصلاحيات (نستخدم profile للتأكد من النوع)
+    if not request.user.is_authenticated or request.user.profile.user_type != 'translator':
+        messages.error(request, "Access denied. You must be a logged-in translator.", "alert-danger")
+        return redirect('translation_request:request_detail_view', pk=pk) 
+    
+    # 🎯 الحصول على كائن المترجم المرتبط بالـ User الحالي (الحل الصحيح)
+    try:
+        # نبحث في نموذج Translator عن السجل المرتبط بالمستخدم الحالي مباشرةً
+        translator_obj = Translator.objects.get(user=request.user)
+    except Translator.DoesNotExist:
+        # إذا كان المستخدم من نوع 'translator' في Profile لكن لا يوجد سجل في جدول Translator
+        messages.error(request, "Your account is not properly linked to a Translator record.", "alert-danger")
+        return redirect('translation_request:request_detail_view', pk=pk)
+
+    # 2. توليد رابط قبول الشركة وإصدار الفاتورة
+    acceptance_url = reverse('payment:issue_invoice_and_assign', 
+                             kwargs={'request_pk': translation_request.pk, 
+                                     'translator_pk': translator_obj.pk})
+    
+    # تحويل الرابط إلى رابط مطلق (Absolute URL)
+    absolute_acceptance_link = request.build_absolute_uri(acceptance_url)
+    
+    # 3. إعداد بيانات الإيميل
+    company_email = translation_request.company.email 
+    subject = f"Translator Interest in Your Request #{translation_request.pk}"
+    
+    message = (
+        f"Dear {translation_request.company.username},\n\n"
+        f"The translator {request.user.username} (Email: {request.user.email}) has shown interest in your translation request: {translation_request.company_name}.\n\n"
+        f"To proceed and officially assign this translator and **issue the invoice**, please click the link below:\n\n"
+        f"{absolute_acceptance_link}\n\n"
+        "The Platform Team"
+    )
+    
+    # 4. إرسال الإيميل
+    try:
+        send_mail(
+            subject, 
+            message, 
+            settings.DEFAULT_FROM_EMAIL, 
+            [company_email],
+            fail_silently=False
+        )
+        messages.success(request, "Your interest has been successfully sent to the company! They will contact you soon.", "alert-success")
+    except Exception as e:
+        messages.error(request, f"Error sending the email to the company: {e}", "alert-danger")
+        
+    return redirect('translation_request:request_detail_view', pk=pk)

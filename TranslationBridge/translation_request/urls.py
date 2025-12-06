@@ -9,6 +9,7 @@ urlpatterns = [
     path('detail/<int:pk>/', views.request_detail_view, name='request_detail_view'),
     path('update/<int:pk>/', views.request_update_view, name='request_update_view'),
     path('delete/<int:pk>/', views.request_delete_view, name='request_delete_view'),
+    path('accept/<int:pk>/', views.request_accept_view, name='request_accept'),
     path('matched/<int:request_id>/', views.request_matched_view, name='request_matched_view'),
     path('assign/<int:request_id>/<int:translator_id>/', views.assign_translator, name='assign_translator'),
 ]
