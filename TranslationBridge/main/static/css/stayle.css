@@ -190,7 +190,7 @@ html {
         display: grid;
         align-items: center;
         justify-content: center;
-        background-color: #0000006d;        
+        background-color: #c1a68b;        
         grid-template-columns: auto auto auto;
         grid-template-rows: auto auto auto;
         gap: 80px;
@@ -215,6 +215,39 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+.best-translators .container .card .textBx
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+.best-translators .container .card  p
+{
+    text-align: center;
+}
+.best-translators .container .card .imgBx
+{
+    height: 120px;
+    position: relative;
+}
+.best-translators .container .card .imgBx img
+{
+    position: relative;
+    font-size: 100;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+.best-translators .container .card .content
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 #forward-link

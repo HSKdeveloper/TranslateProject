@@ -34,6 +34,7 @@ def create_translator_view(request:HttpRequest):
 
     city = City.objects.all()
     languages = Language.objects.all()
+    specialties = specialty.objects.all()
 
     if request.method == "POST":
         translator_form = TranslatorForm(request.POST)
@@ -44,7 +45,7 @@ def create_translator_view(request:HttpRequest):
         else:
             print("not valid form", translator_form.errors)
              
-    return render(request, "translators/translators_create.html", {"translator_form":translator_form , "RatingChoices":Translator.RatingChoices.choices, "cities":city, "languages":languages } )
+    return render(request, "translators/translators_create.html", {"translator_form":translator_form , "RatingChoices":Translator.RatingChoices.choices, "cities":city, "languages":languages, "specialties":specialties } )
 
 
 #All translator list

@@ -15,7 +15,9 @@
                     <img src="{{translator.image.url}}" alt="">
                 </div>
                 <div class="textBx">
-                    <h5>{{translator.specialties.name}}</h5>
+                    {% for specialty in translator.specialties.all %}
+                        <h5>{{specialty.name}}</h5>
+                    {% endfor %}
                 </div>
             </div>
         </div>
