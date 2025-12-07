@@ -102,3 +102,5 @@ Add the links after uploading the files to GitHub.
 - Bootstrap  
 - SQLite  
 - Git & GitHub
+
+UML : inside resource folder
