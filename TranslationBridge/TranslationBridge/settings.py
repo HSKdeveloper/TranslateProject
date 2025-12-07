@@ -30,6 +30,8 @@ SECRET_KEY = 'django-insecure-2z)_icx-et4yh+6za$q3lp(qws0@z#^v%mne45qg=lhcscxny0
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://translateproject-production.up.railway.app", "http://127.0.0.1"]
+
 
 
 # Application definition
