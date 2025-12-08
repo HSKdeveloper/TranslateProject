@@ -1,0 +1,52 @@
+[
+{
+  "model": "accounts.profile",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "bio": "My name is Yujin, I am from Korea and I am teaching Korean language for foreigners",
+    "avatar": "images/avatars/female-image.jpg",
+    "user_type": "other"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 2,
+  "fields": {
+    "user": 6,
+    "bio": "person",
+    "avatar": "images/avatars/green-image.jpg",
+    "user_type": "other"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 5,
+  "fields": {
+    "user": 9,
+    "bio": "Teacher",
+    "avatar": "images/avatars/avatar-image_110YYrn.jpg",
+    "user_type": "translator"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 8,
+  "fields": {
+    "user": 12,
+    "bio": "Freelancer",
+    "avatar": "images/avatars/avatar-image.jpg",
+    "user_type": "translator"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 10,
+  "fields": {
+    "user": 14,
+    "bio": "Teacher",
+    "avatar": "images/avatars/profile-image.jpg",
+    "user_type": "company"
+  }
+}
+]
