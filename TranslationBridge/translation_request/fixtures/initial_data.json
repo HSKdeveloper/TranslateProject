@@ -1,204 +1,90 @@
 [
 {
-  "model": "auth.user",
+  "model": "translation_request.translationrequest",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$1nqCHzBfP99FpwP7R1inuN$MBDNZYTPHYity2VUIG8LYqxFgDOxbmue7sq2tOPo2uw=",
-    "last_login": "2025-11-30T16:51:47.479Z",
-    "is_superuser": false,
-    "username": "admin",
-    "first_name": "Hissah",
-    "last_name": "Alkharboush",
-    "email": "hissahsaad23@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-11-30T16:51:33.583Z",
-    "groups": [],
-    "user_permissions": []
+    "company": 12,
+    "company_name": "Hissa",
+    "company_type": "private",
+    "request_type": "instant",
+    "specialty": null,
+    "language": null,
+    "description": "kfmdlmvnlwikjetnvjhgvn",
+    "cost": null,
+    "location": null,
+    "created_at": "2025-12-06T13:42:54.816Z",
+    "file": "pdf/test_7MP6k5L.txt",
+    "duration_days": null,
+    "city": null,
+    "start_date": null,
+    "translator": null,
+    "status": "pending"
   }
 },
 {
-  "model": "auth.user",
+  "model": "translation_request.translationrequest",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$2InD4gtR4ETlDSD2ODfL9c$4zJrp8DWd1f70KKYA+XQOjtZoSPhWhMedzrS1o9KE4g=",
-    "last_login": "2025-12-06T17:48:02.849Z",
-    "is_superuser": false,
-    "username": "bora",
-    "first_name": "bora",
-    "last_name": "kim",
-    "email": "bora@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-11-30T16:53:04.445Z",
-    "groups": [],
-    "user_permissions": []
+    "company": 2,
+    "company_name": "bora",
+    "company_type": "private",
+    "request_type": "instant",
+    "specialty": null,
+    "language": null,
+    "description": "",
+    "cost": null,
+    "location": null,
+    "created_at": "2025-12-06T15:24:19.823Z",
+    "file": "pdf/test_731OY4R.txt",
+    "duration_days": null,
+    "city": null,
+    "start_date": null,
+    "translator": null,
+    "status": "assigned"
   }
 },
 {
-  "model": "auth.user",
+  "model": "translation_request.translationrequest",
   "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$atCBqeyKa2biLD3XSlp2K5$87BXdtJUK2VDB0AqImMUk/WKoJfDvXc8PAXbuCqhlZI=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "Nora",
-    "first_name": "Norra",
-    "last_name": "Alminhali",
-    "email": "norah@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-12-01T05:18:54.362Z",
-    "groups": [],
-    "user_permissions": []
+    "company": 14,
+    "company_name": "bora",
+    "company_type": "private",
+    "request_type": "instant",
+    "specialty": null,
+    "language": null,
+    "description": "",
+    "cost": null,
+    "location": null,
+    "created_at": "2025-12-06T17:09:25.797Z",
+    "file": "pdf/test_LebTGME.txt",
+    "duration_days": null,
+    "city": null,
+    "start_date": null,
+    "translator": null,
+    "status": "pending"
   }
 },
 {
-  "model": "auth.user",
+  "model": "translation_request.translationrequest",
   "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$bW3cxhhvAUpJywIxKEHwOf$sKafe39+0ML87rihov46SLJcchRZPY3fmJvhy+KslkI=",
-    "last_login": "2025-12-09T05:06:21.973Z",
-    "is_superuser": true,
-    "username": "team",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@gmail.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2025-12-02T08:19:31.690Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 5,
-  "fields": {
-    "password": "pbkdf2_sha256$1000000$cjpSE1yRLeEc1p9kcabQMi$w/C8SoEA3x7Ei0nrZwthSb82zYZD7+t6e47DjEntduo=",
-    "last_login": "2025-12-04T17:06:43.324Z",
-    "is_superuser": false,
-    "username": "Yujin",
-    "first_name": "Yujin",
-    "last_name": "Choi",
-    "email": "yujin@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-12-04T16:50:56.591Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 6,
-  "fields": {
-    "password": "pbkdf2_sha256$1000000$QQh6REzHQwyDm2ug1jCPf5$ZYxUavRffUGgjep7D2cfHB/UiMv3jzFFmTTTbGBYnB8=",
-    "last_login": "2025-12-06T19:56:59.568Z",
-    "is_superuser": false,
-    "username": "Jin",
-    "first_name": "Jin",
-    "last_name": "Kim",
-    "email": "jin@naver.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2025-12-04T17:10:11Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 9,
-  "fields": {
-    "password": "pbkdf2_sha256$1000000$Jvf4TssY9Km7XpLeF4uGfy$oQU+AEyLBg37TpcAtVb94fokx0SJZCVcivs+X4Trw68=",
-    "last_login": "2025-12-04T21:35:40.096Z",
-    "is_superuser": false,
-    "username": "T",
-    "first_name": "tamym",
-    "last_name": "saad",
-    "email": "t@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-12-04T21:35:29.465Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 12,
-  "fields": {
-    "password": "pbkdf2_sha256$1000000$dmRo41Qz5rAJb26FYuWL8x$HuaaoxdnZ7Zu+lgFyf44f0Xwv1clehgkVy+gJUBQi8g=",
-    "last_login": "2025-12-06T13:36:10.811Z",
-    "is_superuser": false,
-    "username": "bora_94",
-    "first_name": "Bora",
-    "last_name": "Kim",
-    "email": "boravlog365@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-12-06T13:35:51.031Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 14,
-  "fields": {
-    "password": "pbkdf2_sha256$1000000$242CCoxItZB1VdL11hxnyG$XwdmVX6whSQiHkJyAfswJZdkunpkJLuOczNczSli5w4=",
-    "last_login": "2025-12-06T16:58:37.652Z",
-    "is_superuser": false,
-    "username": "kimbora",
-    "first_name": "kim",
-    "last_name": "bora",
-    "email": "al5arboush.1433@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-12-06T16:58:19.680Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.profile",
-  "pk": 2,
-  "fields": {
-    "user": 6,
-    "bio": "person",
-    "avatar": "images/avatars/green-image.jpg",
-    "user_type": "other"
-  }
-},
-{
-  "model": "accounts.profile",
-  "pk": 5,
-  "fields": {
-    "user": 9,
-    "bio": "Teacher",
-    "avatar": "images/avatars/avatar-image_110YYrn.jpg",
-    "user_type": "translator"
-  }
-},
-{
-  "model": "accounts.profile",
-  "pk": 8,
-  "fields": {
-    "user": 12,
-    "bio": "Freelancer",
-    "avatar": "images/avatars/avatar-image.jpg",
-    "user_type": "translator"
-  }
-},
-{
-  "model": "accounts.profile",
-  "pk": 10,
-  "fields": {
-    "user": 14,
-    "bio": "Teacher",
-    "avatar": "images/avatars/profile-image.jpg",
-    "user_type": "company"
+    "company": 14,
+    "company_name": "bora",
+    "company_type": "private",
+    "request_type": "instant",
+    "specialty": null,
+    "language": null,
+    "description": "oktlgmlrkymnhbkrnyjkeyr",
+    "cost": null,
+    "location": null,
+    "created_at": "2025-12-06T17:20:17.362Z",
+    "file": "pdf/test_nG8i8yQ.txt",
+    "duration_days": null,
+    "city": null,
+    "start_date": null,
+    "translator": null,
+    "status": "pending"
   }
 }
 ]

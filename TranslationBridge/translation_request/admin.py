@@ -21,7 +21,7 @@ class TranslationRequestAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ("Basic Info", {
-            "fields": ("company", "company_name", "company_type", "request_type", "status")
+            "fields": ("company", "description", "company_name", "company_type", "request_type", "status")
         }),
         ("Translation Details", {
             "fields": ("language", "specialty", "file", "cost", "duration_days", "start_date")
